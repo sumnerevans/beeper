@@ -1,0 +1,15 @@
+.vim/coc-settings.json
+
+beeper-desktop/
+beeper-services/
+libsignal-service-java/
+linkedin-matrix/
+linkedin-messaging-api/
+mautrix-facebook/
+mautrix-hangouts/
+mautrix-instagram/
+mautrix-python/
+mautrix-signal/
+mautrix-telegram/
+mautrix-twitter/
+signald/
