@@ -13,7 +13,6 @@ let
   );
 
   projectUris = [
-    "git@github.com:beeper/libsignal-service-java.git"
     "git@github.com:sumnerevans/linkedin-matrix.git"
     "git@github.com:sumnerevans/linkedin-messaging-api.git"
     "git@github.com:tulir/mautrix-facebook.git"
@@ -25,8 +24,32 @@ let
     "git@github.com:tulir/mautrix-twitter.git"
     "git@gitlab.com:beeper/beeper-desktop.git"
     "git@gitlab.com:beeper/beeper-services.git"
+    "git@gitlab.com:beeper/libsignal-service-java.git"
     "git@gitlab.com:beeper/signald.git"
   ];
+
+  initGitPkgs = let
+    cloneCmd = uri: ''
+      IFS='/' read -ra parts <<< "${uri}"
+      dir="''${parts[-1]}"
+      if [[ $dir =~ ^.*.git$ ]]; then
+        dir=''${dir::-4}
+      fi
+
+      if [[ -d $dir ]]; then
+        echo "$dir already exists. Will not create."
+      else
+        ${pkgs.git}/bin/git clone --recurse-submodules -j8 ${uri} $dir
+      fi
+    '';
+  in
+    pkgs.writeShellScriptBin "initgit" ''
+      echo
+      echo Cloning necessary repos
+      echo
+      ${lib.concatMapStringsSep "\n" cloneCmd projectUris}
+      echo
+    '';
 in
 mkShell rec {
   name = "impurePythonEnv";
@@ -41,6 +64,8 @@ mkShell rec {
     python3Packages.python-olm
     python3Packages.python_magic
 
+    initGitPkgs
+
     rnix-lsp
   ];
 
@@ -51,32 +76,11 @@ mkShell rec {
 
   # Now we can execute any commands within the virtual environment.
   # This is optional and can be left out to run pip manually.
-  postShellHook = let
-    cloneCmd = uri: ''
-      IFS='/' read -ra parts <<< "${uri}"
-      dir="''${parts[-1]}"
-      if [[ $dir =~ ^.*.git$ ]]; then
-        dir=''${dir::-4}
-      fi
+  postShellHook = ''
+    # allow pip to install wheels
+    unset SOURCE_DATE_EPOCH
 
-      if [[ -d $dir ]]; then
-        echo "$dir already exists. Will not create."
-      else
-        git clone --recurse-submodules -j8 ${uri} $dir
-      fi
-    '';
-  in
-    ''
-      # allow pip to install wheels
-      unset SOURCE_DATE_EPOCH
-
-      mkdir -p .vim
-      ln -sf ${cocConfig} .vim/coc-settings.json
-
-      echo
-      echo Cloning necessary repos
-      echo
-      ${lib.concatMapStringsSep "\n" cloneCmd projectUris}
-      echo
-    '';
+    mkdir -p .vim
+    ln -sf ${cocConfig} .vim/coc-settings.json
+  '';
 }
