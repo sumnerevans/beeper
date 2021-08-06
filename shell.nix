@@ -12,45 +12,47 @@ let
     }
   );
 
-  projectUris = [
-    "git@github.com:sumnerevans/linkedin-matrix.git"
-    "git@github.com:sumnerevans/linkedin-messaging-api.git"
-    "git@github.com:tulir/mautrix-facebook.git"
-    "git@github.com:tulir/mautrix-hangouts.git"
-    "git@github.com:tulir/mautrix-instagram.git"
-    "git@github.com:tulir/mautrix-python.git"
-    "git@github.com:tulir/mautrix-signal.git"
-    "git@github.com:tulir/mautrix-telegram.git"
-    "git@github.com:tulir/mautrix-twitter.git"
-    "git@gitlab.com:beeper/beeper-desktop.git"
-    "git@gitlab.com:beeper/beeper-services.git"
-    "git@gitlab.com:beeper/issues.git"
-    "git@gitlab.com:beeper/libsignal-service-java.git"
-    "git@gitlab.com:beeper/signald.git"
-  ];
+  projectUris = {
+    mautrix = {
+      facebook = "git@github.com:mautrix/facebook.git";
+      hangouts = "git@github.com:mautrix/hangouts.git";
+      instagram = "git@github.com:mautrix/instagram.git";
+      python = "git@github.com:mautrix/python.git";
+      signal = "git@github.com:mautrix/signal.git";
+      telegram = "git@github.com:mautrix/telegram.git";
+      twitter = "git@github.com:mautrix/twitter.git";
+    };
+    linkedin-matrix = "git@github.com:sumnerevans/linkedin-matrix.git";
+    linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
+    beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
+    beeper-services = "git@gitlab.com:beeper/beeper-services.git";
+    issues = "git@gitlab.com:beeper/issues.git";
+    libsignal-service-java = "git@gitlab.com:beeper/libsignal-service-java.git";
+    signald = "git@gitlab.com:beeper/signald.git";
+  };
 
-  initGitPkgs = let
-    cloneCmd = uri: ''
-      IFS='/' read -ra parts <<< "${uri}"
-      dir="''${parts[-1]}"
-      if [[ $dir =~ ^.*.git$ ]]; then
-        dir=''${dir::-4}
-      fi
+  cloneCmd = rootDir: key: uri: ''
+    if [[ -d ${rootDir}/${key} ]]; then
+      echo "${rootDir}/${key} already exists. Will not create."
+    else
+      mkdir -p ${rootDir}
+      ${pkgs.git}/bin/git clone --recurse-submodules -j8 ${uri} ${rootDir}/${key}
+    fi
+  '';
+  recurseProjectUris = rootDir: lib.mapAttrsToList (
+    name: value:
+      if builtins.isAttrs value
+      then recurseProjectUris "${rootDir}/${name}" value
+      else cloneCmd rootDir name value
+  );
 
-      if [[ -d $dir ]]; then
-        echo "$dir already exists. Will not create."
-      else
-        ${pkgs.git}/bin/git clone --recurse-submodules -j8 ${uri} $dir
-      fi
-    '';
-  in
-    pkgs.writeShellScriptBin "initgit" ''
-      echo
-      echo Cloning necessary repos
-      echo
-      ${lib.concatMapStringsSep "\n" cloneCmd projectUris}
-      echo
-    '';
+  initGitPkgs = pkgs.writeShellScriptBin "initgit" ''
+    echo
+    echo Cloning necessary repos
+    echo
+    ${lib.concatStringsSep "\n" (lib.flatten (recurseProjectUris "." projectUris))}
+    echo
+  '';
 in
 mkShell rec {
   name = "impurePythonEnv";
@@ -65,6 +67,7 @@ mkShell rec {
     python3Packages.python-olm
     python3Packages.python_magic
 
+    # Utility scripts
     initGitPkgs
 
     rnix-lsp
