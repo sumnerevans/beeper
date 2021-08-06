@@ -22,6 +22,7 @@ let
       telegram = "git@github.com:mautrix/telegram.git";
       twitter = "git@github.com:mautrix/twitter.git";
     };
+
     linkedin-matrix = "git@github.com:sumnerevans/linkedin-matrix.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
@@ -69,6 +70,9 @@ mkShell rec {
 
     # Utility scripts
     initGitPkgs
+
+    # Utilities
+    ngrok
 
     rnix-lsp
   ];
