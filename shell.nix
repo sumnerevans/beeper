@@ -24,6 +24,7 @@ let
     "git@github.com:tulir/mautrix-twitter.git"
     "git@gitlab.com:beeper/beeper-desktop.git"
     "git@gitlab.com:beeper/beeper-services.git"
+    "git@gitlab.com:beeper/issues.git"
     "git@gitlab.com:beeper/libsignal-service-java.git"
     "git@gitlab.com:beeper/signald.git"
   ];
