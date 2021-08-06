@@ -23,6 +23,7 @@ let
       twitter = "git@github.com:mautrix/twitter.git";
     };
 
+    chatwoot = "git@gitlab.com:beeper/chatwoot.git";
     linkedin-matrix = "git@github.com:sumnerevans/linkedin-matrix.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
@@ -60,10 +61,9 @@ mkShell rec {
   venvDir = "./.venv";
 
   buildInputs = [
+    # Python
     python3
     python3Packages.venvShellHook
-
-    # Python Dependencies
     python3Packages.psycopg2
     python3Packages.python-olm
     python3Packages.python_magic
@@ -73,6 +73,10 @@ mkShell rec {
 
     # Utilities
     ngrok
+
+    # Golang
+    go
+    gopls
 
     rnix-lsp
   ];
