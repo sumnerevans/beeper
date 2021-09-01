@@ -21,6 +21,7 @@ let
       signal = "git@github.com:mautrix/signal.git";
       telegram = "git@github.com:mautrix/telegram.git";
       twitter = "git@github.com:mautrix/twitter.git";
+      whatsapp = "git@github.com:mautrix/whatsapp.git";
     };
 
     chatwoot = "git@gitlab.com:beeper/chatwoot.git";
@@ -31,6 +32,7 @@ let
     issues = "git@gitlab.com:beeper/issues.git";
     libsignal-service-java = "git@gitlab.com:beeper/libsignal-service-java.git";
     signald = "git@gitlab.com:beeper/signald.git";
+    okhttp = "git@github.com:square/okhttp.git";
   };
 
   cloneCmd = rootDir: key: uri: ''

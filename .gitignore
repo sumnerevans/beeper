@@ -10,4 +10,5 @@ libsignal-service-java/
 linkedin-matrix/
 linkedin-messaging-api/
 mautrix/
+okhttp/
 signald/
