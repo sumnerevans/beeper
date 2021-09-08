@@ -33,6 +33,7 @@ let
     issues = "git@gitlab.com:beeper/issues.git";
     libsignal-service-java = "git@gitlab.com:beeper/libsignal-service-java.git";
     signald = "git@gitlab.com:beeper/signald.git";
+    stack = "git@gitlab.com:beeper/stack.git";
     okhttp = "git@github.com:square/okhttp.git";
   };
 
