@@ -15,6 +15,7 @@ let
   projectUris = {
     mautrix = {
       facebook = "git@github.com:mautrix/facebook.git";
+      go = "git@github.com:mautrix/go.git";
       hangouts = "git@github.com:mautrix/hangouts.git";
       instagram = "git@github.com:mautrix/instagram.git";
       python = "git@github.com:mautrix/python.git";
