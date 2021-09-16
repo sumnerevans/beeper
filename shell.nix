@@ -25,16 +25,17 @@ let
       whatsapp = "git@github.com:mautrix/whatsapp.git";
     };
 
-    chatwoot = "git@gitlab.com:beeper/chatwoot.git";
-    linkedin-matrix = "git@github.com:sumnerevans/linkedin-matrix.git";
-    linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
+    chatwoot = "git@gitlab.com:beeper/chatwoot.git";
     issues = "git@gitlab.com:beeper/issues.git";
+    libsignal-client = "git@github.com:signalapp/libsignal-client.git";
     libsignal-service-java = "git@gitlab.com:beeper/libsignal-service-java.git";
+    linkedin-matrix = "git@github.com:sumnerevans/linkedin-matrix.git";
+    linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
+    okhttp = "git@github.com:square/okhttp.git";
     signald = "git@gitlab.com:beeper/signald.git";
     stack = "git@gitlab.com:beeper/stack.git";
-    okhttp = "git@github.com:square/okhttp.git";
   };
 
   cloneCmd = rootDir: key: uri: ''
@@ -64,6 +65,8 @@ mkShell rec {
   name = "impurePythonEnv";
   venvDir = "./.venv";
 
+  RIPGREP_CONFIG_PATH = ./.ripgreprc;
+
   buildInputs = [
     # Python
     python3
@@ -71,9 +74,26 @@ mkShell rec {
     python3Packages.psycopg2
     python3Packages.python-olm
     python3Packages.python_magic
+    python3Packages.click
+    python3Packages.requests
+    python3Packages.sh
+    python3Packages.pyyaml
+
+    # K8S
+    k9s
+    kube3d
+    kubectl
+    kustomize
+    kustomize-sops
+    skaffold
+    sops
+    terraform
 
     # Utility scripts
     initGitPkgs
+
+    # Rust
+    rustup
 
     # Utilities
     ngrok

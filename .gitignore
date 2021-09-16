@@ -6,9 +6,11 @@ beeper-desktop/
 beeper-services/
 chatwoot/
 issues/
+libsignal-client/
 libsignal-service-java/
 linkedin-matrix/
 linkedin-messaging-api/
 mautrix/
 okhttp/
 signald/
+stack/
