@@ -60,6 +60,20 @@ let
     ${lib.concatStringsSep "\n" (lib.flatten (recurseProjectUris "." projectUris))}
     echo
   '';
+
+  # Aliases
+  aliases = {
+    k = "kubectl";
+
+    kb = "kustomize build --enable-alpha-plugins";
+
+    kl = "k --kubeconfig kubeconfig.yaml";
+    k9sl = "k9s --kubeconfig kubeconfig.yaml";
+
+    klh = "kubectl --kubeconfig kubeconfig-hetzner.yaml";
+    k9slh = "k9s --kubeconfig kubeconfig-hetzner.yaml";
+  };
+  aliasPackage = name: val: writeShellScriptBin name "${val} $@";
 in
 mkShell rec {
   name = "impurePythonEnv";
@@ -75,9 +89,9 @@ mkShell rec {
     python3Packages.python-olm
     python3Packages.python_magic
     python3Packages.click
+    python3Packages.pyyaml
     python3Packages.requests
     python3Packages.sh
-    python3Packages.pyyaml
 
     # K8S
     k9s
@@ -95,15 +109,18 @@ mkShell rec {
     # Rust
     rustup
 
-    # Utilities
-    ngrok
+    # JS
+    yarn
 
     # Golang
     go
     gopls
 
+    # Utilities
+    ngrok
     rnix-lsp
-  ];
+    yq-go
+  ] ++ (lib.mapAttrsToList aliasPackage aliases);
 
   # Run this command, only after creating the virtual environment
   postVenvCreation = ''
