@@ -13,6 +13,10 @@ let
   );
 
   projectUris = {
+    maubot = {
+      gitlab = "git@github.com:maubot/gitlab.git";
+    };
+
     mautrix = {
       facebook = "git@github.com:mautrix/facebook.git";
       go = "git@github.com:mautrix/go.git";
@@ -29,9 +33,9 @@ let
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
     chatwoot = "git@gitlab.com:beeper/chatwoot.git";
     issues = "git@gitlab.com:beeper/issues.git";
-    libsignal-client = "git@github.com:signalapp/libsignal-client.git";
+    libsignal-client = "git@gitlab.com:beeper/libsignal-client.git";
     libsignal-service-java = "git@gitlab.com:beeper/libsignal-service-java.git";
-    linkedin-matrix = "git@github.com:sumnerevans/linkedin-matrix.git";
+    linkedin-matrix = "git@gitlab.com:beeper/linkedin.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
     okhttp = "git@github.com:square/okhttp.git";
     signald = "git@gitlab.com:beeper/signald.git";
