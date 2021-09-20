@@ -120,6 +120,9 @@ mkShell rec {
     go
     gopls
 
+    # Synapse
+    matrix-synapse
+
     # Utilities
     ngrok
     rnix-lsp

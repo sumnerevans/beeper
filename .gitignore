@@ -1,6 +1,7 @@
 .vim/coc-settings.json
 .direnv
 .venv
+.synapsedata
 
 beeper-desktop/
 beeper-services/
