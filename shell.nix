@@ -40,6 +40,7 @@ let
     okhttp = "git@github.com:square/okhttp.git";
     signald = "git@gitlab.com:beeper/signald.git";
     stack = "git@gitlab.com:beeper/stack.git";
+    synapse = "git@gitlab.com:beeper/synapse.git";
   };
 
   cloneCmd = rootDir: key: uri: ''
