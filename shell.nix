@@ -15,6 +15,7 @@ let
   projectUris = {
     maubot = {
       gitlab = "git@github.com:maubot/gitlab.git";
+      linear = "git@gitlab.com:beeper/linear-maubot.git";
     };
 
     mautrix = {
