@@ -1,4 +1,4 @@
-with import <nixpkgs> {};
+with import <nixpkgs> { };
 let
   # CoC Config
   cocConfig = writeText "coc-settings.json" (
@@ -80,6 +80,8 @@ let
     k9slh = "k9s --kubeconfig kubeconfig-hetzner.yaml";
   };
   aliasPackage = name: val: writeShellScriptBin name "${val} $@";
+
+  PROJECT_ROOT = builtins.getEnv "PWD";
 in
 mkShell rec {
   name = "impurePythonEnv";
@@ -143,6 +145,9 @@ mkShell rec {
     unset SOURCE_DATE_EPOCH
 
     mkdir -p .vim
-    ln -sf ${cocConfig} .vim/coc-settings.json
+    ln -sf ${cocConfig} ${PROJECT_ROOT}/.vim/coc-settings.json
+
+    # Add /bin to path
+    export PATH="${PROJECT_ROOT}/bin:$PATH"
   '';
 }
