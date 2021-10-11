@@ -16,6 +16,7 @@ let
     maubot = {
       gitlab = "git@github.com:maubot/gitlab.git";
       linear = "git@gitlab.com:beeper/linear-maubot.git";
+      maubot = "git@github.com:maubot/maubot.git";
     };
 
     mautrix = {
@@ -92,14 +93,16 @@ mkShell rec {
   buildInputs = [
     # Python
     python3
-    python3Packages.venvShellHook
+    black
+    python3Packages.click
     python3Packages.psycopg2
     python3Packages.python-olm
     python3Packages.python_magic
-    python3Packages.click
     python3Packages.pyyaml
     python3Packages.requests
     python3Packages.sh
+    python3Packages.venvShellHook
+    python3Packages.virtualenv
 
     # K8S
     k9s
@@ -136,6 +139,8 @@ mkShell rec {
   # Run this command, only after creating the virtual environment
   postVenvCreation = ''
     unset SOURCE_DATE_EPOCH
+
+    pip install -r requirements.txt
   '';
 
   # Now we can execute any commands within the virtual environment.
