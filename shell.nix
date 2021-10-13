@@ -123,6 +123,9 @@ mkShell rec {
     # JS
     yarn
 
+    # Java
+    visualvm
+
     # Golang
     go
     gopls
