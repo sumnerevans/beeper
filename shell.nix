@@ -31,6 +31,10 @@ let
       whatsapp = "git@github.com:mautrix/whatsapp.git";
     };
 
+    signal = {
+      android = "git@github.com:signalapp/Signal-Android.git";
+    };
+
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
     chatwoot = "git@gitlab.com:beeper/chatwoot.git";

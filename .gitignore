@@ -15,6 +15,7 @@ linkedin-messaging-api/
 maubot/
 mautrix/
 okhttp/
+signal/
 signald/
 stack/
 synapse/
