@@ -20,9 +20,11 @@ let
     };
 
     mautrix = {
+      asmux = "git@gitlab.com:beeper/mautrix-asmux.git";
       facebook = "git@github.com:mautrix/facebook.git";
       go = "git@github.com:mautrix/go.git";
       hangouts = "git@github.com:mautrix/hangouts.git";
+      imessage = "git@github.com:mautrix/imessage.git";
       instagram = "git@github.com:mautrix/instagram.git";
       python = "git@github.com:mautrix/python.git";
       signal = "git@github.com:mautrix/signal.git";
@@ -43,6 +45,7 @@ let
     libsignal-service-java = "git@gitlab.com:beeper/libsignal-service-java.git";
     linkedin-matrix = "git@gitlab.com:beeper/linkedin.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
+    mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
     okhttp = "git@github.com:square/okhttp.git";
     signald = "git@gitlab.com:beeper/signald.git";
     stack = "git@gitlab.com:beeper/stack.git";
@@ -64,11 +67,13 @@ let
       else cloneCmd rootDir name value
   );
 
+  PROJECT_ROOT = builtins.getEnv "PWD";
+
   initGitPkgs = pkgs.writeShellScriptBin "initgit" ''
     echo
     echo Cloning necessary repos
     echo
-    ${lib.concatStringsSep "\n" (lib.flatten (recurseProjectUris "." projectUris))}
+    ${lib.concatStringsSep "\n" (lib.flatten (recurseProjectUris PROJECT_ROOT projectUris))}
     echo
   '';
 
@@ -85,8 +90,6 @@ let
     k9slh = "k9s --kubeconfig kubeconfig-hetzner.yaml";
   };
   aliasPackage = name: val: writeShellScriptBin name "${val} $@";
-
-  PROJECT_ROOT = builtins.getEnv "PWD";
 in
 mkShell rec {
   name = "impurePythonEnv";
