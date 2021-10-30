@@ -90,6 +90,25 @@ let
     k9slh = "k9s --kubeconfig kubeconfig-hetzner.yaml";
   };
   aliasPackage = name: val: writeShellScriptBin name "${val} $@";
+
+  listNotes = pkgs.writeShellScriptBin "list-notes" ''
+    if [[ "$(pwd)" != "${PROJECT_ROOT}" ]]; then
+      exit 0
+    fi
+
+    if [[ -f ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d.md) ]]; then
+      echo
+      echo "$(tput bold)TODAY'S NOTES$(tput sgr0)"
+      echo "$(tput bold)=============$(tput sgr0)"
+      echo
+      cat ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d.md)
+      echo
+    fi
+  '';
+
+  daynotes = pkgs.writeShellScriptBin "daynotes" ''
+    vim ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d.md)
+  '';
 in
 mkShell rec {
   name = "impurePythonEnv";
@@ -141,6 +160,7 @@ mkShell rec {
     matrix-synapse
 
     # Utilities
+    daynotes
     ngrok
     rnix-lsp
     yq-go
@@ -152,6 +172,8 @@ mkShell rec {
 
     pip install -r requirements.txt
   '';
+
+  POST_CD_COMMAND = "${listNotes}/bin/list-notes";
 
   # Now we can execute any commands within the virtual environment.
   # This is optional and can be left out to run pip manually.
