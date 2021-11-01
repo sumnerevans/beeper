@@ -45,6 +45,7 @@ let
     libsignal-service-java = "git@gitlab.com:beeper/libsignal-service-java.git";
     linkedin-matrix = "git@gitlab.com:beeper/linkedin.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
+    matrix-react-sdk = "git@github.com:matrix-org/matrix-react-sdk.git";
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
     okhttp = "git@github.com:square/okhttp.git";
     signald = "git@gitlab.com:beeper/signald.git";

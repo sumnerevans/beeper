@@ -12,6 +12,7 @@ libsignal-client/
 libsignal-service-java/
 linkedin-matrix/
 linkedin-messaging-api/
+matrix-react-sdk/
 maubot/
 mautrix/
 mx-puppet-monorepo/
