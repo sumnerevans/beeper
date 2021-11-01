@@ -23,7 +23,7 @@ let
       asmux = "git@gitlab.com:beeper/mautrix-asmux.git";
       facebook = "git@github.com:mautrix/facebook.git";
       go = "git@github.com:mautrix/go.git";
-      hangouts = "git@github.com:mautrix/hangouts.git";
+      googlechat = "git@github.com:mautrix/googlechat.git";
       imessage = "git@github.com:mautrix/imessage.git";
       instagram = "git@github.com:mautrix/instagram.git";
       python = "git@github.com:mautrix/python.git";
