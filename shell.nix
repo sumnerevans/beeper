@@ -121,6 +121,7 @@ mkShell rec {
     # Python
     python3
     black
+    python3Packages.bottle
     python3Packages.click
     python3Packages.psycopg2
     python3Packages.python-olm

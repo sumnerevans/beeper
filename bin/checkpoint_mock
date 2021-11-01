@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+import json
+import sys
+from bottle import post, request, run
+
+
+@post("/")
+def index():
+    print(json.dumps(request.json, indent=4))
+
+
+run(host="localhost", port=sys.argv[1])
