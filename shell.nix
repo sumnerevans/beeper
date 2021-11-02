@@ -46,10 +46,12 @@ let
     linkedin-matrix = "git@gitlab.com:beeper/linkedin.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
     matrix-react-sdk = "git@github.com:matrix-org/matrix-react-sdk.git";
+    matrix-vacation-responder = "git@gitlab.com:beeper/matrix-vacation-responder.git";
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
     okhttp = "git@github.com:square/okhttp.git";
     signald = "git@gitlab.com:beeper/signald.git";
     stack = "git@gitlab.com:beeper/stack.git";
+    standupbot = "git@gitlab.com:beeper/standupbot.git";
     synapse = "git@gitlab.com:beeper/synapse.git";
   };
 

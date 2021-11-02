@@ -13,6 +13,7 @@ libsignal-service-java/
 linkedin-matrix/
 linkedin-messaging-api/
 matrix-react-sdk/
+matrix-vacation-responder/
 maubot/
 mautrix/
 mx-puppet-monorepo/
@@ -20,4 +21,5 @@ okhttp/
 signal/
 signald/
 stack/
+standupbot/
 synapse/
