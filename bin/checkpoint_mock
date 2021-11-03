@@ -5,8 +5,10 @@ import sys
 from bottle import post, request, run
 
 
-@post("/")
-def index():
+@post("/bridgebox/<username>/bridge/<bridge>/send_message_metrics")
+def index(username, bridge):
+    print(f"Got metrics for {username}/{bridge}")
+    print(request.get_header("Authorization"))
     print(json.dumps(request.json, indent=4))
 
 
