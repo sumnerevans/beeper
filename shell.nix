@@ -118,6 +118,7 @@ mkShell rec {
   venvDir = "./.venv";
 
   RIPGREP_CONFIG_PATH = ./.ripgreprc;
+  ASMUX_SHARED_SECRET = lib.removeSuffix "\n" (builtins.readFile ./secrets/asmux_shared_secret);
 
   buildInputs = [
     # Python
