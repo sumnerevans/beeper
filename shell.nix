@@ -145,6 +145,10 @@ mkShell rec {
     sops
     terraform
 
+    # Local dev env
+    minikube
+    skaffold
+
     # Utility scripts
     initGitPkgs
 
@@ -171,7 +175,7 @@ mkShell rec {
     daynotes
     ngrok
     rnix-lsp
-    yq
+    yq-go
   ] ++ (lib.mapAttrsToList aliasPackage aliases);
 
   # Run this command, only after creating the virtual environment
