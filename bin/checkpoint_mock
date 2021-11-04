@@ -7,9 +7,12 @@ from bottle import post, request, run
 
 @post("/bridgebox/<username>/bridge/<bridge>/send_message_metrics")
 def index(username, bridge):
-    print(f"Got metrics for {username}/{bridge}")
-    print(request.get_header("Authorization"))
-    print(json.dumps(request.json, indent=4))
+    try:
+        print(f"Got metrics for {username}/{bridge}")
+        print(request.get_header("Authorization"))
+        print(json.dumps(request.json, indent=4))
+    except:
+        pass
 
 
 run(host="localhost", port=sys.argv[1])
