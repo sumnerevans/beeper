@@ -147,6 +147,7 @@ mkShell rec {
 
     # Local dev env
     minikube
+    mkcert
     skaffold
 
     # Utility scripts
@@ -181,8 +182,6 @@ mkShell rec {
   # Run this command, only after creating the virtual environment
   postVenvCreation = ''
     unset SOURCE_DATE_EPOCH
-
-    pip install -r requirements.txt
   '';
 
   POST_CD_COMMAND = "${listNotes}/bin/list-notes";
