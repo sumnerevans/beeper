@@ -176,7 +176,7 @@ mkShell rec {
     daynotes
     ngrok
     rnix-lsp
-    yq-go
+    yq
   ] ++ (lib.mapAttrsToList aliasPackage aliases);
 
   # Run this command, only after creating the virtual environment
