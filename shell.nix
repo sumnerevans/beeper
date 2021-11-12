@@ -135,16 +135,6 @@ mkShell rec {
     python3Packages.venvShellHook
     python3Packages.virtualenv
 
-    # K8S
-    k9s
-    kube3d
-    kubectl
-    kustomize
-    kustomize-sops
-    skaffold
-    sops
-    terraform
-
     # Local dev env
     minikube
     mkcert
