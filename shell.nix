@@ -154,7 +154,10 @@ mkShell rec {
 
     # Golang
     go
+    goimports
     gopls
+    olm
+    vgo2nix
 
     # Synapse
     matrix-synapse
