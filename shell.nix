@@ -37,9 +37,11 @@ let
       android = "git@github.com:signalapp/Signal-Android.git";
     };
 
+    android-sms = "git@gitlab.com:beeper/android-sms.git";
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
     chatwoot = "git@gitlab.com:beeper/chatwoot.git";
+    cloud-mac-stack = "git@gitlab.com:beeper/cloud-mac-stack.git";
     issues = "git@gitlab.com:beeper/issues.git";
     libsignal-client = "git@gitlab.com:beeper/libsignal-client.git";
     libsignal-service-java = "git@gitlab.com:beeper/libsignal-service-java.git";
@@ -49,10 +51,12 @@ let
     matrix-vacation-responder = "git@gitlab.com:beeper/matrix-vacation-responder.git";
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
     okhttp = "git@github.com:square/okhttp.git";
+    rageshake = "git@gitlab.com:beeper/rageshake.git";
     signald = "git@gitlab.com:beeper/signald.git";
     stack = "git@gitlab.com:beeper/stack.git";
     standupbot = "git@gitlab.com:beeper/standupbot.git";
     synapse = "git@gitlab.com:beeper/synapse.git";
+    yeetserv = "git@gitlab.com:beeper/yeetserv.git";
   };
 
   cloneCmd = rootDir: key: uri: ''
@@ -153,7 +157,7 @@ mkShell rec {
     visualvm
 
     # Golang
-    go
+    go_1_17
     goimports
     gopls
     olm

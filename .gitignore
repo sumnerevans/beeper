@@ -4,8 +4,10 @@
 .data
 .synapsedata
 
+android-sms/
 beeper-desktop/
 beeper-services/
+cloud-mac-stack/
 chatwoot/
 issues/
 libsignal-client/
@@ -18,8 +20,10 @@ maubot/
 mautrix/
 mx-puppet-monorepo/
 okhttp/
+rageshake/
 signal/
 signald/
 stack/
 standupbot/
 synapse/
+yeetserv/
