@@ -163,9 +163,6 @@ mkShell rec {
     olm
     vgo2nix
 
-    # Synapse
-    matrix-synapse
-
     # Synapse Docs
     mdbook
 

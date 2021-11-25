@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -xe
+
+RESP=$(
+    jq -n '{"purge": true}' |
+        curl -X DELETE \
+             -H "Content-Type: application/json" \
+             -H "Authorization: Bearer ${AUTH_TOKEN}" \
+             "http://localhost:8008/_synapse/admin/v2/rooms/$1" \
+             --data @-
+)
+delete_id=$(echo $RESP | jq -r '.delete_id')
+
+while true; do
+        curl -H "Content-Type: application/json" \
+             -H "Authorization: Bearer ${AUTH_TOKEN}" \
+             "http://localhost:8008/_synapse/admin/v2/rooms/delete_status/$delete_id"
+        sleep 1
+done
