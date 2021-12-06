@@ -1,4 +1,19 @@
-with import <nixpkgs> { };
+with import <nixpkgs>
+{
+  overlays = [
+    (self: super: {
+      black = super.black.overrideAttrs (old: rec {
+        version = "21.12b0";
+        src = self.pkgs.python3.pkgs.fetchPypi {
+          inherit (old) pname;
+          inherit version;
+          sha256 = "sha256-d7gPaTpWni5SeVhFljTxjfmwuiYluk4MLV2lvkLm8rM=";
+        };
+      });
+    }
+    )
+  ];
+};
 let
   # CoC Config
   cocConfig = writeText "coc-settings.json" (
@@ -21,6 +36,7 @@ let
 
     mautrix = {
       asmux = "git@gitlab.com:beeper/mautrix-asmux.git";
+      docs = "git@github.com:mautrix/docs.git";
       facebook = "git@github.com:mautrix/facebook.git";
       go = "git@github.com:mautrix/go.git";
       googlechat = "git@github.com:mautrix/googlechat.git";
