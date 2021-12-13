@@ -156,6 +156,9 @@ mkShell rec {
     python3Packages.virtualenv
 
     # Local dev env
+    k9s
+    kubectl
+    kustomize
     minikube
     mkcert
     skaffold
@@ -178,6 +181,9 @@ mkShell rec {
     gopls
     olm
     vgo2nix
+
+    # Node
+    nodejs-16_x
 
     # Synapse Docs
     mdbook
