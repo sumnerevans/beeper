@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+"""
+Usage: pass the event JSON into stdin.
+
+Args:
+  input filename: the file that got downloaded
+  output filename: the file to output to
+"""
+
+import base64
+import json
+import sys
+import subprocess
+
+
+event_json = json.load(sys.stdin)
+content = event_json["content"]
+file = content["file"]
+
+iv = file["iv"]
+k = file["key"]["k"]
+
+print("IV:", iv)
+print("Key:", k)
+
+
+def decode_base64_to_hex(data: str):
+    """
+    Decode base64 to hex, padding being optional.
+
+    :param data: Base64 data as an ASCII byte string
+    :returns: The decoded byte string.
+
+    https://stackoverflow.com/questions/2941995/python-ignore-incorrect-padding-error-when-base64-decoding
+    """
+    data = data.replace("-", "+").replace("_", "/")
+    missing_padding = len(data) % 4
+    if missing_padding:
+        data += "=" * (4 - missing_padding)
+    return "".join(f"{x:0{2}x}" for x in base64.b64decode(data))
+
+
+print(decode_base64_to_hex(iv))
+print(decode_base64_to_hex(k))
+
+subprocess.run(
+    [
+        "openssl",
+        "aes-256-ctr",
+        "-iv",
+        decode_base64_to_hex(iv),
+        "-K",
+        decode_base64_to_hex(k),
+        "-d",
+        "-in",
+        sys.argv[1],
+        "-out",
+        sys.argv[2],
+    ]
+)
