@@ -120,18 +120,18 @@ let
       exit 0
     fi
 
-    if [[ -f ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d.md) ]]; then
+    if [[ -f ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d).todo.md ]]; then
       echo
-      echo "$(tput bold)TODAY'S NOTES$(tput sgr0)"
+      echo "$(tput bold)TODAY'S TODO$(tput sgr0)"
       echo "$(tput bold)=============$(tput sgr0)"
       echo
-      cat ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d.md)
+      cat ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d).todo.md
       echo
     fi
   '';
 
   daynotes = pkgs.writeShellScriptBin "daynotes" ''
-    vim ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d.md)
+    vim ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d).todo.md
   '';
 in
 mkShell rec {
