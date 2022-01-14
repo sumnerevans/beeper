@@ -156,6 +156,9 @@ mkShell rec {
     python3Packages.venvShellHook
     python3Packages.virtualenv
 
+    # Other packages
+    ffmpeg
+
     # Local dev env
     k9s
     kubectl
