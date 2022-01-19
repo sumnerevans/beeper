@@ -1,18 +1,6 @@
 with import <nixpkgs>
 {
-  overlays = [
-    (self: super: {
-      black = super.black.overrideAttrs (old: rec {
-        version = "21.12b0";
-        src = self.pkgs.python3.pkgs.fetchPypi {
-          inherit (old) pname;
-          inherit version;
-          sha256 = "sha256-d7gPaTpWni5SeVhFljTxjfmwuiYluk4MLV2lvkLm8rM=";
-        };
-      });
-    }
-    )
-  ];
+  overlays = [ ];
 };
 let
   # CoC Config
