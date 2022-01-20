@@ -165,6 +165,8 @@ mkShell rec {
     yarn
 
     # Java
+    gradle
+    jdk11
     visualvm
 
     # Golang
