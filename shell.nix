@@ -194,7 +194,12 @@ mkShell rec {
     unset SOURCE_DATE_EPOCH
   '';
 
-  POST_CD_COMMAND = "${listNotes}/bin/list-notes";
+  POST_CD_COMMAND = pkgs.writeShellScript "list-notes" ''
+    if [ -f .pre-commit-config.yaml ]; then
+      pre-commit install --install-hooks
+    fi
+    ${listNotes}/bin/list-notes
+  '';
 
   # Now we can execute any commands within the virtual environment.
   # This is optional and can be left out to run pip manually.
@@ -207,5 +212,8 @@ mkShell rec {
 
     # Add /bin to path
     export PATH="${PROJECT_ROOT}/bin:$PATH"
+
+    # Install pre-commit
+    pip install pre-commit
   '';
 }
