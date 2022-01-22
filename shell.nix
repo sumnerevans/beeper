@@ -187,6 +187,9 @@ mkShell rec {
     ngrok
     rnix-lsp
     yq
+
+    # Commit hooks
+    pre-commit
   ] ++ (lib.mapAttrsToList aliasPackage aliases);
 
   # Run this command, only after creating the virtual environment
@@ -212,8 +215,5 @@ mkShell rec {
 
     # Add /bin to path
     export PATH="${PROJECT_ROOT}/bin:$PATH"
-
-    # Install pre-commit
-    pip install pre-commit
   '';
 }
