@@ -46,7 +46,7 @@ for e in state_events:
     elif e["type"] == "m.room.topic":
         topic = e["content"]["topic"]
     elif e["type"] == "m.room.member":
-        if e["type"] != "join":
+        if e["membershp"] != "join":
             # Only invite people who are currently in the room.
             continue
 
@@ -87,7 +87,6 @@ print(f"Last message in {old_room_id}:", old_room_last_event_id)
 create_room_request = {
     "visibility": "private",
     "name": name,
-    "invite": members,
     "creation_content": {
         "predecessor": {
             "event_id": old_room_last_event_id,
@@ -115,6 +114,25 @@ create_room_request = {
             "type": "m.room.guest_access",
             "state_key": "",
             "content": {"guest_access": "forbidden"},
+        },
+        {
+            "type": "m.room.join_rules",
+            "state_key": "",
+            "content": {
+                "join_rule": "restricted",
+                "allow": [
+                    # The Beeper team space
+                    {
+                        "room_id": "!iXZMHoUhAYxTUqpVBB:beeper.com",
+                        "type": "m.room_membership",
+                    },
+                    # Beeper team room
+                    {
+                        "room_id": "!StTxxbAqytkPgnaDUK:pulsar.im",
+                        "type": "m.room_membership",
+                    },
+                ],
+            },
         },
     ],
 }
