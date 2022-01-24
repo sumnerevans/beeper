@@ -165,6 +165,7 @@ mkShell rec {
     yarn
 
     # Java
+    clang-tools
     gradle
     jdk11
     visualvm
