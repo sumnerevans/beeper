@@ -76,13 +76,21 @@ assert name
 assert old_power_level_content
 assert power_level_content_override
 
+last_message = requests.get(
+    make_url(f"/rooms/{old_room_id}/messages"),
+    params={"dir": "b", "limit": 1},
+    headers={"Authorization": f"Bearer {auth_token}"},
+).json()
+old_room_last_event_id = last_message["chunk"][0]["event_id"]
+print(f"Last message in {old_room_id}:", old_room_last_event_id)
+
 create_room_request = {
     "visibility": "private",
     "name": name,
     "invite": members,
     "creation_content": {
         "predecessor": {
-            "event_id": "FOO",  # TODO
+            "event_id": old_room_last_event_id,
             "room_id": old_room_id,
         },
         "room_version": room_version,
@@ -133,6 +141,8 @@ tombstone_content = {
     "replacement_room": new_room_id,
 }
 
+# Tombstone the old room and make it so that you can't invite or send events to it
+# anymore.
 requests.put(
     make_url(f"/rooms/{old_room_id}/state/m.room.tombstone"),
     headers={"Authorization": f"Bearer {auth_token}"},
