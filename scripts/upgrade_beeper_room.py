@@ -3,6 +3,8 @@
 import json
 import os
 import sys
+import time
+
 import requests
 
 OLD_DOMAINS = ("pulsar.im", "beeperhq.com", "nova.chat")
@@ -174,3 +176,21 @@ requests.put(
     headers={"Authorization": f"Bearer {auth_token}"},
     json=old_power_level_content,
 )
+
+# Invite all old members to new room
+for m in members:
+    for i in range(3):  # 3 retries
+        print(f"Invite {m}. Attempt {i}.")
+        resp = requests.post(
+            make_url(f"/rooms/{new_room_id}/invite"),
+            headers={"Authorization": f"Bearer {auth_token}"},
+            json={"user_id": m},
+        )
+        if resp.status_code == 200:
+            # Go to the next person
+            break
+        elif resp.status_code == 429:
+            # Rate limited. Need to wait for cooldown.
+            wait_ms = resp.json().get("retry_after_ms", 5000)
+            print(f"Rate limiting kicked in. Waiting for {wait_ms+1000}ms")
+            time.sleep(wait_ms + 1000)
