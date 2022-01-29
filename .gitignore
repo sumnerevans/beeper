@@ -4,12 +4,14 @@
 .data
 .signaldata
 .synapsedata
+*.tmp
 
 android-sms/
 beeper-desktop/
 beeper-services/
-cloud-mac-stack/
 chatwoot/
+cloud-mac-stack/
+external-custom-ci/
 issues/
 libsignal-client/
 libsignal-service-java/

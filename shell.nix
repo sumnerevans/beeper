@@ -46,6 +46,7 @@ let
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
     chatwoot = "git@gitlab.com:beeper/chatwoot.git";
     cloud-mac-stack = "git@gitlab.com:beeper/cloud-mac-stack.git";
+    external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
     issues = "git@gitlab.com:beeper/issues.git";
     libsignal-client = "git@gitlab.com:beeper/libsignal-client.git";
     libsignal-service-java = "git@gitlab.com:beeper/libsignal-service-java.git";
@@ -56,7 +57,7 @@ let
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
     okhttp = "git@github.com:square/okhttp.git";
     rageshake = "git@gitlab.com:beeper/rageshake.git";
-    signald = "git@gitlab.com:beeper/signald.git";
+    signald = "git@gitlab.com:signald/signald.git";
     stack = "git@gitlab.com:beeper/stack.git";
     standupbot = "git@gitlab.com:beeper/standupbot.git";
     synapse = "git@gitlab.com:beeper/synapse.git";
