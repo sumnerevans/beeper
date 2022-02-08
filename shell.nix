@@ -46,6 +46,8 @@ let
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
     chatwoot = "git@gitlab.com:beeper/chatwoot.git";
     cloud-mac-stack = "git@gitlab.com:beeper/cloud-mac-stack.git";
+    donutbot = "git@github.com:smweber/donutbot.git";
+    element-web = "git@github.com:vector-im/element-web.git";
     external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
     issues = "git@gitlab.com:beeper/issues.git";
     libsignal-client = "git@gitlab.com:beeper/libsignal-client.git";
@@ -133,7 +135,6 @@ mkShell rec {
   buildInputs = [
     # Python
     python3
-    black
     python3Packages.bottle
     python3Packages.click
     python3Packages.psycopg2
