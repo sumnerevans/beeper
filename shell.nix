@@ -37,10 +37,6 @@ let
       whatsapp = "git@github.com:mautrix/whatsapp.git";
     };
 
-    signal = {
-      android = "git@github.com:signalapp/Signal-Android.git";
-    };
-
     android-sms = "git@gitlab.com:beeper/android-sms.git";
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
@@ -50,15 +46,12 @@ let
     element-web = "git@github.com:vector-im/element-web.git";
     external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
     issues = "git@gitlab.com:beeper/issues.git";
-    libsignal-client = "git@gitlab.com:beeper/libsignal-client.git";
-    libsignal-service-java = "git@gitlab.com:beeper/libsignal-service-java.git";
     linkedin-matrix = "git@gitlab.com:beeper/linkedin.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
     matrix-js-sdk = "https://github.com/matrix-org/matrix-js-sdk.git";
     matrix-react-sdk = "git@github.com:matrix-org/matrix-react-sdk.git";
     matrix-vacation-responder = "git@gitlab.com:beeper/matrix-vacation-responder.git";
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
-    okhttp = "git@github.com:square/okhttp.git";
     rageshake = "git@gitlab.com:beeper/rageshake.git";
     signald = "git@gitlab.com:signald/signald.git";
     stack = "git@gitlab.com:beeper/stack.git";
