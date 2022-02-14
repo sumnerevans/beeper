@@ -37,11 +37,9 @@ let
       whatsapp = "git@github.com:mautrix/whatsapp.git";
     };
 
-    android-sms = "git@gitlab.com:beeper/android-sms.git";
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
     chatwoot = "git@gitlab.com:beeper/chatwoot.git";
-    cloud-mac-stack = "git@gitlab.com:beeper/cloud-mac-stack.git";
     donutbot = "git@github.com:smweber/donutbot.git";
     element-web = "git@github.com:vector-im/element-web.git";
     external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
