@@ -166,8 +166,8 @@ mkShell rec {
 
     # Golang
     go_1_17
-    goimports
     gopls
+    gotools
     olm
     vgo2nix
 
