@@ -29,6 +29,7 @@ okhttp/
 rageshake/
 signal/
 signald/
+signald-go/
 stack/
 standupbot/
 synapse/

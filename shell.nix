@@ -52,6 +52,7 @@ let
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
     rageshake = "git@gitlab.com:beeper/rageshake.git";
     signald = "git@gitlab.com:signald/signald.git";
+    signald-go = "git@gitlab.com:signald/signald-go.git";
     stack = "git@gitlab.com:beeper/stack.git";
     standupbot = "git@gitlab.com:beeper/standupbot.git";
     synapse = "git@gitlab.com:beeper/synapse.git";
