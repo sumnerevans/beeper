@@ -47,6 +47,7 @@ let
     linkedin-matrix = "git@gitlab.com:beeper/linkedin.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
     matrix-js-sdk = "https://github.com/matrix-org/matrix-js-sdk.git";
+    matrix-media-repo = "git@gitlab.com:beeper/matrix-media-repo.git";
     matrix-react-sdk = "git@github.com:matrix-org/matrix-react-sdk.git";
     matrix-vacation-responder = "git@gitlab.com:beeper/matrix-vacation-responder.git";
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
@@ -124,6 +125,7 @@ mkShell rec {
 
   RIPGREP_CONFIG_PATH = ./.ripgreprc;
   ASMUX_SHARED_SECRET = lib.removeSuffix "\n" (builtins.readFile ./secrets/asmux_shared_secret);
+  GIT_CONFIG_GLOBAL = ./.gitconfig;
 
   buildInputs = [
     # Python
