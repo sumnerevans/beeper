@@ -6,7 +6,7 @@ TOKEN="syt_c3VtbmVy_chyiTOyXlOfzwUAbwrBF_11TLVG"
 ROOM_ID="!lgTsThtlBSkrkQkgdR:localhost"
 
 mxc_uri=$(curl \
-    -X POST "http://localhost:8008/_matrix/media/r0/create" \
+    -X POST "http://localhost:8008/_matrix/media/unstable/fi.mau.msc2246/create" \
     -H "Authorization: Bearer $TOKEN" | jq -r ".content_uri")
 
 echo "Created a new URI: $mxc_uri"
@@ -29,10 +29,10 @@ jq -n --arg URI $mxc_uri '
 
 
 # Wait a couple seconds
-sleep 3
+sleep 10
 
 # Then actually upload it
 media_id=$(echo $mxc_uri | cut -d '/' -f 4 )
-curl -X PUT "http://localhost:8008/_matrix/media/r0/upload/localhost/$media_id" \
+curl -X PUT "http://localhost:8008/_matrix/media/unstable/fi.mau.msc2246/upload/localhost/$media_id" \
     --data-binary '@/home/sumner/tmp/IMG_0555.jpg' \
     -H "Authorization: Bearer $TOKEN"
