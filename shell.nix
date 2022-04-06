@@ -40,6 +40,7 @@ let
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
     chatwoot = "git@gitlab.com:beeper/chatwoot.git";
+    discord = "git@gitlab.com:beeper/discord.git";
     donutbot = "git@github.com:smweber/donutbot.git";
     element-web = "git@github.com:vector-im/element-web.git";
     external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
@@ -154,6 +155,9 @@ mkShell rec {
 
     # Utility scripts
     initGitPkgs
+
+    # Deno
+    deno
 
     # Rust
     rustup
