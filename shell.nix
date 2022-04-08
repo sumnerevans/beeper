@@ -188,7 +188,7 @@ mkShell rec {
     daynotes
     ngrok
     rnix-lsp
-    yq
+    yq-go
 
     # Commit hooks
     pre-commit
