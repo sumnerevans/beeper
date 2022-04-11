@@ -143,6 +143,7 @@ mkShell rec {
     python3Packages.virtualenv
 
     # Other packages
+    appimage-run
     ffmpeg
 
     # Local dev env
