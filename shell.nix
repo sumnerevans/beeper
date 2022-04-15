@@ -133,6 +133,7 @@ mkShell rec {
     python3
     python3Packages.bottle
     python3Packages.click
+    python3Packages.pillow
     python3Packages.psycopg2
     python3Packages.python-olm
     python3Packages.python_magic
