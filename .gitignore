@@ -35,5 +35,6 @@ signald-go/
 stack/
 standupbot/
 synapse/
+sytest/
 whatsmeow/
 yeetserv/

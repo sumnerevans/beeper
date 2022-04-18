@@ -58,6 +58,7 @@ let
     stack = "git@gitlab.com:beeper/stack.git";
     standupbot = "git@gitlab.com:beeper/standupbot.git";
     synapse = "git@gitlab.com:beeper/synapse.git";
+    sytest = "git@github.com:matrix-org/sytest.git";
     whatsmeow = "git@github.com:tulir/whatsmeow.git";
     yeetserv = "git@gitlab.com:beeper/yeetserv.git";
   };
