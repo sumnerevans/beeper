@@ -211,7 +211,7 @@ mkShell rec {
 
   # Now we can execute any commands within the virtual environment.
   # This is optional and can be left out to run pip manually.
-  postShellHook = ''
+  shellHook = ''
     # allow pip to install wheels
     unset SOURCE_DATE_EPOCH
 
