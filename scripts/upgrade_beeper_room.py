@@ -49,7 +49,7 @@ for e in state_events:
     elif e["type"] == "m.room.topic":
         topic = e["content"]["topic"]
     elif e["type"] == "m.room.member":
-        if e["membershp"] != "join":
+        if e["content"]["membership"] != "join":
             # Only invite people who are currently in the room.
             continue
 
@@ -66,6 +66,9 @@ for e in state_events:
             for user, power_level in power_level_content_override["users"].items()
             if user.split(":")[-1] not in OLD_DOMAINS
         }
+        # Make sure Brad & Eric are admins of all Beeper rooms
+        power_level_content_override["users"]["@eric:beeper.com"] = 100
+        power_level_content_override["users"]["@brad:beeper.com"] = 100
     elif e["type"] in ("m.room.server_acl", "m.room.avatar"):
         initial_state_extra.append(
             {
@@ -104,7 +107,13 @@ create_room_request = {
         {
             "type": "m.room.encryption",
             "state_key": "",
-            "content": {"algorithm": "m.megolm.v1.aes-sha2"},
+            "content": {
+                "algorithm": "m.megolm.v1.aes-sha2",
+                # Don't rotate the keys as frequently, 30 days and 10000 messages
+                # instead of the default 7 days and 100 messages.
+                "rotation_period_ms": 2592000000,
+                "rotation_period_msgs": 10000
+            },
         },
         # Always make history visibility shared
         {
@@ -117,6 +126,12 @@ create_room_request = {
             "type": "m.room.guest_access",
             "state_key": "",
             "content": {"guest_access": "forbidden"},
+        },
+        # Only retain the last 90 days of history
+        {
+            "type": "m.room.retention",
+            "state_key": "",
+            "content": {"max_lifetime": 604800000}
         },
         {
             "type": "m.room.join_rules",
@@ -162,16 +177,12 @@ tombstone_content = {
     "replacement_room": new_room_id,
 }
 
-# Tombstone the old room and make it so that you can't invite or send events to it
-# anymore.
-requests.put(
-    make_url(f"/rooms/{old_room_id}/state/m.room.tombstone"),
-    headers={"Authorization": f"Bearer {auth_token}"},
-    json=tombstone_content,
-)
-
+# Adjust the old room power levels first so Brad and Eric are allowed to tombstone the
+# room.
 old_power_level_content["events_default"] = 50
 old_power_level_content["invite"] = 50
+old_power_level_content["users"]["@eric:beeper.com"] = 100
+old_power_level_content["users"]["@brad:beeper.com"] = 100
 requests.put(
     make_url(f"/rooms/{old_room_id}/state/m.room.power_levels"),
     headers={"Authorization": f"Bearer {auth_token}"},
@@ -192,6 +203,14 @@ requests.put(
     json={
         "via": ["beeper.com"],
     },
+)
+
+# Tombstone the old room and make it so that you can't invite or send events to it
+# anymore.
+requests.put(
+    make_url(f"/rooms/{old_room_id}/state/m.room.tombstone"),
+    headers={"Authorization": f"Bearer {auth_token}"},
+    json=tombstone_content,
 )
 
 # Invite all old members to new room
