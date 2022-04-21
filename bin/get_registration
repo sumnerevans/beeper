@@ -6,4 +6,4 @@ curl -sfS \
   -X PUT \
   -H "Authorization: Bearer $ASMUX_SHARED_SECRET" \
   -d "{\"address\": \"$3\"}" \
-  http://localhost:29326/_matrix/asmux/appservice/$1/$2 | yq -y
+  http://localhost:29326/_matrix/asmux/appservice/$1/$2 | yq -P
