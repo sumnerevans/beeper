@@ -8,6 +8,7 @@ import time
 import requests
 
 OLD_DOMAINS = ("pulsar.im", "beeperhq.com", "nova.chat")
+BEEPER_SPACE_ROOM_ID = "!iXZMHoUhAYxTUqpVBB:beeper.com"
 
 
 def make_url(part: str):
@@ -99,7 +100,7 @@ create_room_request = {
     "power_level_content_override": power_level_content_override,
     "initial_state": [
         *initial_state_extra,
-        # All Beeper rooms sholud be encrypted
+        # All Beeper rooms should be encrypted
         {
             "type": "m.room.encryption",
             "state_key": "",
@@ -125,7 +126,7 @@ create_room_request = {
                 "allow": [
                     # The Beeper team space
                     {
-                        "room_id": "!iXZMHoUhAYxTUqpVBB:beeper.com",
+                        "room_id": BEEPER_SPACE_ROOM_ID,
                         "type": "m.room_membership",
                     },
                     # Beeper team room
@@ -175,6 +176,22 @@ requests.put(
     make_url(f"/rooms/{old_room_id}/state/m.room.power_levels"),
     headers={"Authorization": f"Bearer {auth_token}"},
     json=old_power_level_content,
+)
+
+# Update the Beeper space with the correct room IDs.
+# Remove the old room ID
+requests.put(
+    make_url(f"/rooms/{BEEPER_SPACE_ROOM_ID}/state/m.space.child/{old_room_id}"),
+    headers={"Authorization": f"Bearer {auth_token}"},
+    json={},
+)
+# Add the new room ID
+requests.put(
+    make_url(f"/rooms/{BEEPER_SPACE_ROOM_ID}/state/m.space.child/{new_room_id}"),
+    headers={"Authorization": f"Bearer {auth_token}"},
+    json={
+        "via": ["beeper.com"],
+    },
 )
 
 # Invite all old members to new room
