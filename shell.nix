@@ -211,14 +211,11 @@ mkShell rec {
 
   # Now we can execute any commands within the virtual environment.
   # This is optional and can be left out to run pip manually.
-  shellHook = ''
+  postShellHook = ''
     # allow pip to install wheels
     unset SOURCE_DATE_EPOCH
 
     mkdir -p .vim
     ln -sf ${cocConfig} ${PROJECT_ROOT}/.vim/coc-settings.json
-
-    # Add /bin to path
-    export PATH="${PROJECT_ROOT}/bin:$PATH"
   '';
 }
