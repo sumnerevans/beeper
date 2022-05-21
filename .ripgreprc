@@ -1,1 +1,5 @@
+--hidden
+--search-zip
+--smart-case
 --no-ignore-vcs
+--glob '!{node_modules/*,.git/*}'

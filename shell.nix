@@ -125,7 +125,11 @@ mkShell rec {
   name = "impurePythonEnv";
   venvDir = "./.venv";
 
-  RIPGREP_CONFIG_PATH = ./.ripgreprc;
+  RIPGREP_CONFIG_PATH = pkgs.writeText "ripgreprc" (lib.concatStringsSep "\n" [
+    "--hidden"
+    "--search-zip"
+    "--smart-case"
+  ]);
   ASMUX_SHARED_SECRET = lib.removeSuffix "\n" (builtins.readFile ./secrets/asmux_shared_secret);
   GIT_CONFIG_GLOBAL = ./.gitconfig;
 
