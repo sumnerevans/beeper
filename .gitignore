@@ -13,6 +13,7 @@ chatwoot/
 cloud-mac-stack/
 discord/
 donutbot/
+dummybridge/
 element-web/
 external-custom-ci/
 issues/
@@ -28,13 +29,15 @@ maubot/
 mautrix/
 mx-puppet-monorepo/
 okhttp/
+proxyserv/
 rageshake/
 signal/
-signald/
 signald-go/
+signald/
 stack/
 standupbot/
 synapse/
 sytest/
+unfedserv/
 whatsmeow/
 yeetserv/

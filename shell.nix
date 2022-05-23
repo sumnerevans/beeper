@@ -41,6 +41,7 @@ let
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
     chatwoot = "git@gitlab.com:beeper/chatwoot.git";
     discord = "git@gitlab.com:beeper/discord.git";
+    dummybridge = "git@gitlab.com:beeper/dummybridge.git";
     donutbot = "git@github.com:smweber/donutbot.git";
     element-web = "git@github.com:vector-im/element-web.git";
     external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
@@ -52,6 +53,7 @@ let
     matrix-react-sdk = "git@github.com:matrix-org/matrix-react-sdk.git";
     matrix-vacation-responder = "git@gitlab.com:beeper/matrix-vacation-responder.git";
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
+    proxyserv = "git@gitlab.com:beeper/proxyserv.git";
     rageshake = "git@gitlab.com:beeper/rageshake.git";
     signald = "git@gitlab.com:signald/signald.git";
     signald-go = "git@gitlab.com:signald/signald-go.git";
@@ -59,6 +61,7 @@ let
     standupbot = "git@gitlab.com:beeper/standupbot.git";
     synapse = "git@gitlab.com:beeper/synapse.git";
     sytest = "git@github.com:matrix-org/sytest.git";
+    unfedserv = "git@gitlab.com:beeper/unfedserv.git";
     whatsmeow = "git@github.com:tulir/whatsmeow.git";
     yeetserv = "git@gitlab.com:beeper/yeetserv.git";
   };
