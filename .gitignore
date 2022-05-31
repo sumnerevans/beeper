@@ -16,6 +16,7 @@ donutbot/
 dummybridge/
 element-web/
 external-custom-ci/
+hungryserv/
 issues/
 libsignal-client/
 libsignal-service-java/
@@ -38,6 +39,5 @@ stack/
 standupbot/
 synapse/
 sytest/
-unfedserv/
 whatsmeow/
 yeetserv/
