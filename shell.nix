@@ -24,6 +24,7 @@ let
 
     mautrix = {
       asmux = "git@gitlab.com:beeper/mautrix-asmux.git";
+      discord = "git@github.com:mautrix/discord.git";
       docs = "git@github.com:mautrix/docs.git";
       facebook = "git@github.com:mautrix/facebook.git";
       go = "git@github.com:mautrix/go.git";
@@ -40,11 +41,11 @@ let
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
     chatwoot = "git@gitlab.com:beeper/chatwoot.git";
-    discord = "git@gitlab.com:beeper/discord.git";
-    dummybridge = "git@gitlab.com:beeper/dummybridge.git";
     donutbot = "git@github.com:smweber/donutbot.git";
+    dummybridge = "git@gitlab.com:beeper/dummybridge.git";
     element-web = "git@github.com:vector-im/element-web.git";
     external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
+    hungryserv = "git@gitlab.com:beeper/hungryserv.git";
     issues = "git@gitlab.com:beeper/issues.git";
     linkedin-matrix = "git@gitlab.com:beeper/linkedin.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
@@ -61,7 +62,6 @@ let
     standupbot = "git@gitlab.com:beeper/standupbot.git";
     synapse = "git@gitlab.com:beeper/synapse.git";
     sytest = "git@github.com:matrix-org/sytest.git";
-    unfedserv = "git@gitlab.com:beeper/unfedserv.git";
     whatsmeow = "git@github.com:tulir/whatsmeow.git";
     yeetserv = "git@gitlab.com:beeper/yeetserv.git";
   };
