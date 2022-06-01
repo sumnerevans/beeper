@@ -136,6 +136,10 @@ mkShell rec {
   ASMUX_SHARED_SECRET = lib.removeSuffix "\n" (builtins.readFile ./secrets/asmux_shared_secret);
   GIT_CONFIG_GLOBAL = ./.gitconfig;
 
+  LD_LIBRARY_PATH = [
+    "${file}/lib"
+  ];
+
   buildInputs = [
     # Python
     python310
@@ -145,7 +149,7 @@ mkShell rec {
     python310Packages.pillow
     python310Packages.psycopg2
     python310Packages.python-olm
-    python310Packages.python_magic
+    python310Packages.python-magic
     python310Packages.pyyaml
     python310Packages.requests
     python310Packages.sh
