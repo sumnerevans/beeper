@@ -2,8 +2,8 @@
 
 set -xe
 
-TOKEN="syt_c3VtbmVy_chyiTOyXlOfzwUAbwrBF_11TLVG"
-ROOM_ID="!lgTsThtlBSkrkQkgdR:localhost"
+TOKEN="syt_c3VtbmVy_LIWlRSxTAiXMfwjGlnoU_0nOM6x"
+ROOM_ID="!ZioofDiIOzLIuJhEIT:localhost"
 
 mxc_uri=$(curl \
     -X POST "http://localhost:8008/_matrix/media/unstable/fi.mau.msc2246/create" \
@@ -33,6 +33,10 @@ sleep 10
 
 # Then actually upload it
 media_id=$(echo $mxc_uri | cut -d '/' -f 4 )
+curl -X PUT "http://localhost:8008/_matrix/media/unstable/fi.mau.msc2246/upload/localhost/$media_id" \
+    --data-binary '@/home/sumner/tmp/IMG_0555.jpg' \
+    -H "Authorization: Bearer $TOKEN" &
+
 curl -X PUT "http://localhost:8008/_matrix/media/unstable/fi.mau.msc2246/upload/localhost/$media_id" \
     --data-binary '@/home/sumner/tmp/IMG_0555.jpg' \
     -H "Authorization: Bearer $TOKEN"
