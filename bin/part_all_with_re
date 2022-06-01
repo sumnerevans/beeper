@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import cast
 
 from mautrix import client
+from mautrix.errors.request import MLimitExceeded
 from mautrix.types.event.state import RoomNameStateEventContent
 from mautrix.types.event.type import EventType
 from mautrix.types.primitive import UserID
@@ -21,7 +22,7 @@ async def main():
     await c.login(identifier=UserID("@sumner:localhost"), password="oheaqfuy1234")
 
     rooms = await c.get_joined_rooms()
-    to_leave = []
+    to_leave = set()
     for room_id in rooms:
         try:
             name = cast(
@@ -29,21 +30,27 @@ async def main():
                 await c.get_state_event(room_id, EventType.ROOM_NAME),
             ).name
             if match_re.fullmatch(name):
-                to_leave.append((room_id, name))
+                to_leave.add((room_id, name))
         except Exception:
             pass
 
-    print("Delete the following rooms?")
+    print("Delete and forget the following rooms?")
     for room_id, name in to_leave:
         print(room_id, name)
 
     resp = input()
     if resp.lower() == "y":
-        for room_id, _ in to_leave:
-            await c.leave_room(room_id)
+        while to_leave:
+            room_id, _ = to_leave.pop()
+            try:
+                await c.leave_room(room_id)
+            except MLimitExceeded:
+                to_leave.add((room_id, ""))
+                await asyncio.sleep(2)
     else:
         print("Cancelling")
 
     await c.logout()
+
 
 asyncio.run(main())
