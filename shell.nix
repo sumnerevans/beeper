@@ -45,6 +45,7 @@ let
     dummybridge = "git@gitlab.com:beeper/dummybridge.git";
     element-web = "git@github.com:vector-im/element-web.git";
     external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
+    heisenbridge = "git@github.com:hifi/heisenbridge.git";
     hungryserv = "git@gitlab.com:beeper/hungryserv.git";
     issues = "git@gitlab.com:beeper/issues.git";
     linkedin-matrix = "git@gitlab.com:beeper/linkedin.git";
