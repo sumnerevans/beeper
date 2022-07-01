@@ -44,6 +44,7 @@ let
     donutbot = "git@github.com:smweber/donutbot.git";
     dummybridge = "git@gitlab.com:beeper/dummybridge.git";
     element-web = "git@github.com:vector-im/element-web.git";
+    etl = "git@gitlab.com:beeper/etl";
     external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
     heisenbridge = "git@github.com:hifi/heisenbridge.git";
     hungryserv = "git@gitlab.com:beeper/hungryserv.git";
