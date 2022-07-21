@@ -11,6 +11,7 @@ beeper-desktop/
 beeper-services/
 chatwoot/
 cloud-mac-stack/
+complement
 donutbot/
 dummybridge/
 element-web/
@@ -30,7 +31,6 @@ matrix-vacation-responder/
 maubot/
 mautrix/
 mx-puppet-monorepo/
-okhttp/
 proxyserv/
 rageshake/
 signal/

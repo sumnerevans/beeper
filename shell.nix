@@ -41,6 +41,7 @@ let
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
     chatwoot = "git@gitlab.com:beeper/chatwoot.git";
+    complement = "git@github.com:matrix-org/complement.git";
     donutbot = "git@github.com:smweber/donutbot.git";
     dummybridge = "git@gitlab.com:beeper/dummybridge.git";
     element-web = "git@github.com:vector-im/element-web.git";
@@ -54,6 +55,7 @@ let
     matrix-js-sdk = "https://github.com/matrix-org/matrix-js-sdk.git";
     matrix-media-repo = "git@gitlab.com:beeper/matrix-media-repo.git";
     matrix-react-sdk = "git@github.com:matrix-org/matrix-react-sdk.git";
+    matrix-spec-proposals = "git@github.com:matrix-org/matrix-spec-proposals.git";
     matrix-vacation-responder = "git@gitlab.com:beeper/matrix-vacation-responder.git";
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
     proxyserv = "git@gitlab.com:beeper/proxyserv.git";
@@ -193,7 +195,6 @@ mkShell rec {
     gopls
     gotools
     olm
-    vgo2nix
 
     # Node
     nodejs-16_x
