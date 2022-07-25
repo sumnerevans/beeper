@@ -60,6 +60,7 @@ let
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
     proxyserv = "git@gitlab.com:beeper/proxyserv.git";
     rageshake = "git@gitlab.com:beeper/rageshake.git";
+    roomserv = "git@gitlab.com:beeper/roomserv.git";
     signald = "git@gitlab.com:signald/signald.git";
     signald-go = "git@gitlab.com:signald/signald-go.git";
     stack = "git@gitlab.com:beeper/stack.git";

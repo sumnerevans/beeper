@@ -27,12 +27,14 @@ linkedin-messaging-api/
 matrix-js-sdk/
 matrix-media-repo/
 matrix-react-sdk/
+matrix-spec-proposals/
 matrix-vacation-responder/
 maubot/
 mautrix/
 mx-puppet-monorepo/
 proxyserv/
 rageshake/
+roomserv/
 signal/
 signald-go/
 signald/
