@@ -18,7 +18,7 @@ let
   projectUris = {
     maubot = {
       gitlab = "git@github.com:maubot/gitlab.git";
-      linear = "git@gitlab.com:beeper/linear-maubot.git";
+      linear = "git@github.com:beeper/linear-maubot.git";
       maubot = "git@github.com:maubot/maubot.git";
     };
 
@@ -38,37 +38,36 @@ let
       whatsapp = "git@github.com:mautrix/whatsapp.git";
     };
 
+    bridge-cd-tool = "git@github.com:beeper/bridge-cd-tool.git";
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
     beeper-services = "git@gitlab.com:beeper/beeper-services.git";
-    chatwoot = "git@gitlab.com:beeper/chatwoot.git";
-    complement = "git@github.com:matrix-org/complement.git";
+    chatwoot = "git@github.com:beeper/chatwoot.git";
+    complement = "git@github.com:beeper/complement.git";
     donutbot = "git@github.com:smweber/donutbot.git";
-    dummybridge = "git@gitlab.com:beeper/dummybridge.git";
+    dummybridge = "git@github.com:beeper/dummybridge.git";
     element-web = "git@github.com:vector-im/element-web.git";
     etl = "git@gitlab.com:beeper/etl";
     external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
     heisenbridge = "git@github.com:hifi/heisenbridge.git";
-    hungryserv = "git@gitlab.com:beeper/hungryserv.git";
-    issues = "git@gitlab.com:beeper/issues.git";
-    linkedin-matrix = "git@gitlab.com:beeper/linkedin.git";
+    hungryserv = "git@github.com:beeper/hungryserv.git";
+    linkedin-matrix = "git@github.com:beeper/linkedin.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
     matrix-js-sdk = "https://github.com/matrix-org/matrix-js-sdk.git";
     matrix-media-repo = "git@gitlab.com:beeper/matrix-media-repo.git";
     matrix-react-sdk = "git@github.com:matrix-org/matrix-react-sdk.git";
     matrix-spec-proposals = "git@github.com:matrix-org/matrix-spec-proposals.git";
-    matrix-vacation-responder = "git@gitlab.com:beeper/matrix-vacation-responder.git";
+    matrix-vacation-responder = "git@github.com:beeper/matrix-vacation-responder.git";
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
-    proxyserv = "git@gitlab.com:beeper/proxyserv.git";
     rageshake = "git@gitlab.com:beeper/rageshake.git";
-    roomserv = "git@gitlab.com:beeper/roomserv.git";
+    roomserv = "git@github.com:beeper/roomserv.git";
     signald = "git@gitlab.com:signald/signald.git";
     signald-go = "git@gitlab.com:signald/signald-go.git";
     stack = "git@gitlab.com:beeper/stack.git";
-    standupbot = "git@gitlab.com:beeper/standupbot.git";
+    standupbot = "git@github.com:beeper/standupbot.git";
     synapse = "git@gitlab.com:beeper/synapse.git";
     sytest = "git@github.com:matrix-org/sytest.git";
     whatsmeow = "git@github.com:tulir/whatsmeow.git";
-    yeetserv = "git@gitlab.com:beeper/yeetserv.git";
+    yeetserv = "git@github.com:beeper/yeetserv.git";
   };
 
   cloneCmd = rootDir: key: uri: ''
