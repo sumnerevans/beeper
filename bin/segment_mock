@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+
+import json
+import sys
+from bottle import post, request, run
+
+
+@post("/v1/track")
+def bridge_remote_state():
+    try:
+        print("Got Segment event")
+        print(json.dumps(request.json, indent=4))
+    except:
+        pass
+
+
+run(host="localhost", port=int(sys.argv[1]))
