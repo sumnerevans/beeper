@@ -17,6 +17,7 @@ let
 
   projectUris = {
     maubot = {
+      github = "git@github.com:maubot/github.git";
       gitlab = "git@github.com:maubot/gitlab.git";
       linear = "git@github.com:beeper/linear-maubot.git";
       maubot = "git@github.com:maubot/maubot.git";
@@ -40,9 +41,10 @@ let
 
     bridge-cd-tool = "git@github.com:beeper/bridge-cd-tool.git";
     beeper-desktop = "git@gitlab.com:beeper/beeper-desktop.git";
-    beeper-services = "git@gitlab.com:beeper/beeper-services.git";
+    beeper-services = "git@github.com:beeper/beeper-services.git";
     chatwoot = "git@github.com:beeper/chatwoot.git";
     complement = "git@github.com:beeper/complement.git";
+    docker-retag-push-latest = "git@github.com:beeper/docker-retag-push-latest.git";
     donutbot = "git@github.com:smweber/donutbot.git";
     dummybridge = "git@github.com:beeper/dummybridge.git";
     element-web = "git@github.com:vector-im/element-web.git";

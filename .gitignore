@@ -13,11 +13,13 @@ bridge-cd-tool/
 chatwoot/
 cloud-mac-stack/
 complement
+docker-retag-push-latest/
 donutbot/
 dummybridge/
 element-web/
 etl/
 external-custom-ci/
+gomuks/
 heisenbridge/
 hungryserv/
 issues/
