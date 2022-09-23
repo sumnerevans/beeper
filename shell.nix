@@ -34,6 +34,7 @@ let
       instagram = "git@github.com:mautrix/instagram.git";
       python = "git@github.com:mautrix/python.git";
       signal = "git@github.com:mautrix/signal.git";
+      slack = "git@github.com:mautrix/slack.git";
       telegram = "git@github.com:mautrix/telegram.git";
       twitter = "git@github.com:mautrix/twitter.git";
       whatsapp = "git@github.com:mautrix/whatsapp.git";
