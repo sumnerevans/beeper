@@ -27,6 +27,7 @@ libsignal-client/
 libsignal-service-java/
 linkedin-matrix/
 linkedin-messaging-api/
+litestream/
 matrix-js-sdk/
 matrix-media-repo/
 matrix-react-sdk/
@@ -43,6 +44,7 @@ signald-go/
 signald/
 stack/
 standupbot/
+sygnal/
 synapse/
 sytest/
 whatsmeow/

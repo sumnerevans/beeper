@@ -55,6 +55,7 @@ let
     hungryserv = "git@github.com:beeper/hungryserv.git";
     linkedin-matrix = "git@github.com:beeper/linkedin.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
+    litestream = "git@github.com:beeper/litestream.git";
     matrix-js-sdk = "https://github.com/matrix-org/matrix-js-sdk.git";
     matrix-media-repo = "git@gitlab.com:beeper/matrix-media-repo.git";
     matrix-react-sdk = "git@github.com:matrix-org/matrix-react-sdk.git";
@@ -67,6 +68,7 @@ let
     signald-go = "git@gitlab.com:signald/signald-go.git";
     stack = "git@gitlab.com:beeper/stack.git";
     standupbot = "git@github.com:beeper/standupbot.git";
+    sygnal = "git@github.com:beeper/sygnal.git";
     synapse = "git@gitlab.com:beeper/synapse.git";
     sytest = "git@github.com:matrix-org/sytest.git";
     whatsmeow = "git@github.com:tulir/whatsmeow.git";
