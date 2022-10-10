@@ -197,6 +197,7 @@ mkShell rec {
 
     # Golang
     go
+    go-tools
     gopls
     gotools
     olm
@@ -212,6 +213,12 @@ mkShell rec {
     ngrok
     rnix-lsp
     yq-go
+
+    # Databases
+    litecli
+    pgcli
+    sqlite
+    sqldiff
 
     # Commit hooks
     pre-commit
