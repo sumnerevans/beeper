@@ -48,7 +48,6 @@ let
     docker-retag-push-latest = "git@github.com:beeper/docker-retag-push-latest.git";
     donutbot = "git@github.com:smweber/donutbot.git";
     dummybridge = "git@github.com:beeper/dummybridge.git";
-    element-web = "git@github.com:vector-im/element-web.git";
     etl = "git@gitlab.com:beeper/etl";
     external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
     heisenbridge = "git@github.com:hifi/heisenbridge.git";
@@ -56,9 +55,7 @@ let
     linkedin-matrix = "git@github.com:beeper/linkedin.git";
     linkedin-messaging-api = "git@github.com:sumnerevans/linkedin-messaging-api.git";
     litestream = "git@github.com:beeper/litestream.git";
-    matrix-js-sdk = "https://github.com/matrix-org/matrix-js-sdk.git";
     matrix-media-repo = "git@gitlab.com:beeper/matrix-media-repo.git";
-    matrix-react-sdk = "git@github.com:matrix-org/matrix-react-sdk.git";
     matrix-spec-proposals = "git@github.com:matrix-org/matrix-spec-proposals.git";
     matrix-vacation-responder = "git@github.com:beeper/matrix-vacation-responder.git";
     mx-puppet-monorepo = "git@gitlab.com:beeper/mx-puppet-monorepo.git";
@@ -196,7 +193,7 @@ mkShell rec {
     visualvm
 
     # Golang
-    go
+    go_1_19
     go-tools
     gopls
     gotools
