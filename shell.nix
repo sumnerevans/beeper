@@ -141,7 +141,6 @@ mkShell rec {
     "--search-zip"
     "--smart-case"
   ]);
-  ASMUX_SHARED_SECRET = lib.removeSuffix "\n" (builtins.readFile ./secrets/asmux_shared_secret);
   GIT_CONFIG_GLOBAL = ./.gitconfig;
 
   LD_LIBRARY_PATH = [
