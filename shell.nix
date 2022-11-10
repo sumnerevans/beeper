@@ -1,5 +1,6 @@
 with import <nixpkgs>
 {
+  config.android_sdk.accept_license = true;
   overlays = [ ];
 };
 let
@@ -50,6 +51,7 @@ let
     dummybridge = "git@github.com:beeper/dummybridge.git";
     etl = "git@gitlab.com:beeper/etl";
     external-custom-ci = "git@gitlab.com:beeper/external-custom-ci.git";
+    groupme = "git@github.com:beeper/groupme.git";
     heisenbridge = "git@github.com:hifi/heisenbridge.git";
     hungryserv = "git@github.com:beeper/hungryserv.git";
     linkedin-matrix = "git@github.com:beeper/linkedin.git";
@@ -187,6 +189,8 @@ mkShell rec {
     yarn
 
     # Java
+    androidenv.androidPkgs_9_0.androidsdk
+    glibc
     clang-tools
     gradle
     jdk11

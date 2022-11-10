@@ -20,6 +20,8 @@ element-web/
 etl/
 external-custom-ci/
 gomuks/
+groupme
+groupme-lib/
 heisenbridge/
 hungryserv/
 issues/
