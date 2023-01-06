@@ -215,6 +215,7 @@ mkShell rec {
     yq-go
 
     # Databases
+    litestream
     litecli
     pgcli
     sqlite
