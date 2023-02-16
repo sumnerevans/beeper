@@ -8,7 +8,7 @@ from bottle import post, request, run
 @post("/bridgebox/<username>/bridge/<bridge>/bridge_remote_state")
 def bridge_remote_state(username, bridge):
     try:
-        print(f"Got remote state from {username}/{bridge}")
+        print(f"\nGot remote state from {username}/{bridge}")
         print(request.get_header("Authorization"))
         print(json.dumps(request.json, indent=4))
     except:
@@ -18,7 +18,7 @@ def bridge_remote_state(username, bridge):
 @post("/bridgebox/<username>/bridge/<bridge>/send_message_metrics")
 def send_message_metrics(username, bridge):
     try:
-        print(f"Got metrics for {username}/{bridge}")
+        print(f"\nGot metrics for {username}/{bridge}")
         print(request.get_header("Authorization"))
         print(json.dumps(request.json, indent=4))
     except:

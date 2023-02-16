@@ -19,8 +19,15 @@ public class App {
 
     public static void main(String[] args) {
         try {
+            try (var preparedStatement = getConn().prepareStatement("CREATE TABLE IF NOT EXISTS test (value int)")) {
+                preparedStatement.executeUpdate();
+            }
+
             for (int i = 0; i < 1000000; i++) {
                 System.out.printf("iteration %d\n", i);
+                var select = getConn().prepareStatement("SELECT * FROM test");
+                select.executeQuery();
+
                 try {
                     System.out.println("1");
                     try (var preparedStatement = getConn().prepareStatement("INSERT OR REPLACE INTO test VALUES(?)")) {
