@@ -104,21 +104,6 @@ let
   };
   aliasPackage = name: val: writeShellScriptBin name "${val} $@";
 
-  listNotes = pkgs.writeShellScriptBin "list-notes" ''
-    if [[ "$(pwd)" != "${PROJECT_ROOT}" ]]; then
-      exit 0
-    fi
-
-    if [[ -f ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d).todo.md ]]; then
-      echo
-      echo "$(tput bold)TODAY'S TODO$(tput sgr0)"
-      echo "$(tput bold)=============$(tput sgr0)"
-      echo
-      cat ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d).todo.md
-      echo
-    fi
-  '';
-
   daynotes = pkgs.writeShellScriptBin "daynotes" ''
     vim ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d).todo.md
   '';
@@ -221,13 +206,6 @@ mkShell rec {
   # Run this command, only after creating the virtual environment
   postVenvCreation = ''
     unset SOURCE_DATE_EPOCH
-  '';
-
-  POST_CD_COMMAND = pkgs.writeShellScript "list-notes" ''
-    if [ -f .pre-commit-config.yaml ]; then
-      pre-commit install --install-hooks
-    fi
-    ${listNotes}/bin/list-notes
   '';
 
   # Now we can execute any commands within the virtual environment.
