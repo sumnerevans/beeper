@@ -16,5 +16,7 @@ max_line_length = 88
 
 # Indentation override for all JSON/YAML files
 [*.{json,yaml,yml}]
-indent_style = space
+indent_size = 2
+
+[*.nix]
 indent_size = 2
