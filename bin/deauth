@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+ROLE=DeveloperReadOnly
+if [ -n $BEEPER_READONLY ]; then
+  ROLE=AdministratorAccess
+fi
+
+rm -rf $HOME/.beeper-secret-cache/environments/$BEEPER_ENV/aws-sso-$ROLE.json
+direnv allow
