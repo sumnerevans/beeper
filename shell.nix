@@ -55,7 +55,7 @@ let
     "beeper/chatwoot"
     "beeper/linear-maubot"
     "beeper/matrix-vacation-responder"
-    "sumnerevans/donutbot"
+    "smweber/donutbot"
     "sumnerevans/github"
 
     # infra
