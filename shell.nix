@@ -173,7 +173,7 @@ mkShell rec {
     visualvm
 
     # Golang
-    go_1_19
+    go_1_20
     # go-tools
     gopls
     gotools
