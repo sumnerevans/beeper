@@ -189,6 +189,7 @@ mkShell rec {
     # Utilities
     daynotes
     ngrok
+    pre-commit
     rnix-lsp
     yq-go
 
