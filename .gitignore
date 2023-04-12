@@ -5,6 +5,7 @@
 .signaldata
 .synapsedata
 *.tmp
+.clash
 
 github.com/
 gitlab.com/

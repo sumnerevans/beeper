@@ -187,6 +187,7 @@ mkShell rec {
     matrix-synapse
 
     # Utilities
+    clash
     daynotes
     ngrok
     pre-commit
