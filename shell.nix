@@ -126,14 +126,16 @@ mkShell rec {
 
   buildInputs = [
     # Python
+    pkg-config
     python310
     python310Packages.boto3
     python310Packages.bottle
     python310Packages.click
     python310Packages.pillow
     python310Packages.psycopg2
-    python310Packages.python-olm
+    python310Packages.PyICU
     python310Packages.python-magic
+    python310Packages.python-olm
     python310Packages.pyyaml
     python310Packages.requests
     python310Packages.sh

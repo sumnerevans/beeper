@@ -7,11 +7,16 @@ from bottle import get, run, HTTPResponse
 
 @get("/get_proxy_url")
 def get_proxy_url():
-    resp = {
-        "proxy_url": "socks5://localhost:1080",
-    }
+    if len(sys.argv) == 5:
+        username, password, host_port = sys.argv[2:]
+        proxy_url = f"socks5://{username}:{password}@{host_port}"
+    else:
+        # localhost clash
+        proxy_url = "socks5://localhost:1080"
+
+    print("Returning proxy URL:", proxy_url)
     return HTTPResponse(
-        body=json.dumps(resp),
+        body=json.dumps({"proxy_url": proxy_url}),
         status=200,
         headers={"Content-Type": "application/json"},
     )
