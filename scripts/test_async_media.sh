@@ -2,11 +2,19 @@
 
 set -xe
 
-TOKEN="syt_c3VtbmVy_LIWlRSxTAiXMfwjGlnoU_0nOM6x"
-ROOM_ID="!ZioofDiIOzLIuJhEIT:localhost"
+TOKEN="syt_c3VtbmVy_XEUthdZXpLDATyBRnpYh_22LNVr"
+ROOM_ID="!BYjOHJlBisqaRJHQAc:localhost"
+
+# for i in {1..3}; do
+#     curl \
+#         -X POST "http://localhost:8008/_matrix/media/v3/create" \
+#         -H "Authorization: Bearer $TOKEN"
+# done
+
+# exit 1
 
 mxc_uri=$(curl \
-    -X POST "http://localhost:8008/_matrix/media/unstable/fi.mau.msc2246/create" \
+    -X POST "http://localhost:8008/_matrix/media/v3/create" \
     -H "Authorization: Bearer $TOKEN" | jq -r ".content_uri")
 
 echo "Created a new URI: $mxc_uri"
@@ -33,10 +41,10 @@ sleep 10
 
 # Then actually upload it
 media_id=$(echo $mxc_uri | cut -d '/' -f 4 )
-curl -X PUT "http://localhost:8008/_matrix/media/unstable/fi.mau.msc2246/upload/localhost/$media_id" \
+curl -X PUT "http://localhost:8008/_matrix/media/v3/upload/localhost/$media_id" \
     --data-binary '@/home/sumner/tmp/IMG_0555.jpg' \
     -H "Authorization: Bearer $TOKEN" &
 
-curl -X PUT "http://localhost:8008/_matrix/media/unstable/fi.mau.msc2246/upload/localhost/$media_id" \
+curl -X PUT "http://localhost:8008/_matrix/media/v3/upload/localhost/$media_id" \
     --data-binary '@/home/sumner/tmp/IMG_0555.jpg' \
     -H "Authorization: Bearer $TOKEN"
