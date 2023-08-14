@@ -5,6 +5,16 @@ import sys
 from bottle import post, request, run
 
 
+@post("/bridgebox/<username>/bridge/<bridge>/bridge_state")
+def bridge_state(username, bridge):
+    try:
+        print(f"\nGot bridge state from {username}/{bridge}")
+        print(request.get_header("Authorization"))
+        print(json.dumps(request.json, indent=4))
+    except:
+        pass
+
+
 @post("/bridgebox/<username>/bridge/<bridge>/bridge_remote_state")
 def bridge_remote_state(username, bridge):
     try:
