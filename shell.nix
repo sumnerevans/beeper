@@ -182,7 +182,7 @@ mkShell rec {
     olm
 
     # Node
-    nodejs_20
+    nodejs
 
     # Synapse Docs
     mdbook
