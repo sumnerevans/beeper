@@ -175,7 +175,7 @@ mkShell rec {
     visualvm
 
     # Golang
-    go_1_20
+    go_1_21
     # go-tools
     gopls
     gotools
@@ -193,6 +193,7 @@ mkShell rec {
     daynotes
     ngrok
     pre-commit
+    protobuf
     rnix-lsp
     yq-go
 
