@@ -145,6 +145,7 @@ mkShell rec {
     # Other packages
     appimage-run
     ffmpeg
+    libheif
 
     # Local dev env
     k9s
@@ -194,6 +195,8 @@ mkShell rec {
     ngrok
     pre-commit
     protobuf
+    protoc-gen-go
+    rlwrap
     rnix-lsp
     yq-go
 
