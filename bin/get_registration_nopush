@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Usage: get_registration username bridgename bridge_address
+
+curl -sfS \
+  -X PUT \
+  -H "Authorization: Bearer m2gzl6an5ju4goz5u9f9716bpygk0yrvv3nbm05yee1br7o4gcylvqezbzgzskhu" \
+  -d "{\"push\": false}" \
+  http://localhost:8009/_matrix/asmux/appservice/$1/$2 | yq -P
