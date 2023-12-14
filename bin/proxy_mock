@@ -2,7 +2,8 @@
 
 import json
 import sys
-from bottle import get, run, HTTPResponse
+
+from bottle import HTTPResponse, get, run
 
 
 @get("/get_proxy_url")
