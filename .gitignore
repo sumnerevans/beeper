@@ -6,6 +6,7 @@
 .synapsedata
 *.tmp
 .clash
+scratch/
 
 github.com/
 gitlab.com/

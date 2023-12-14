@@ -1,4 +1,0 @@
-dbs:
-  - path: /home/sumner/projects/beeper/scratch/sqlitetest/app/test.db
-    replicas:
-      - path: /home/sumner/tmp/backups/test.db

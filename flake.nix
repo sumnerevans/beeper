@@ -83,20 +83,24 @@
               # Deno
               deno
 
-              # Rust
-              rustup
-
-              # JS
-              yarn
-
               # Golang
               go_1_21
               gopls
               gotools
               olm
 
+              # JS
+              yarn
+
+              # Kotlin
+              gradle
+              kotlin
+
               # Node
               nodejs
+
+              # Rust
+              rustup
 
               # Synapse Docs
               mdbook
