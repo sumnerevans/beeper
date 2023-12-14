@@ -89,14 +89,6 @@
               # JS
               yarn
 
-              # Java
-              androidenv.androidPkgs_9_0.androidsdk
-              glibc
-              clang-tools
-              gradle
-              jdk11
-              visualvm
-
               # Golang
               go_1_21
               gopls
