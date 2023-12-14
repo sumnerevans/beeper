@@ -4,20 +4,6 @@ with import <nixpkgs>
   overlays = [ ];
 };
 let
-  PROJECT_ROOT = builtins.getEnv "PWD";
-
-  # CoC Config
-  cocConfig = writeText "coc-settings.json" (
-    builtins.toJSON {
-      "python.formatting.provider" = "black";
-      "python.linting.enabled" = true;
-      "python.linting.flake8Enabled" = true;
-      "python.linting.mypyEnabled" = true;
-      "python.linting.pylintEnabled" = false;
-      "python.pythonPath" = "/home/sumner/projects/beeper/.venv/bin/python";
-    }
-  );
-
   gitGetURIs = [
     # bridges
     "beeper/dummybridge"
@@ -105,10 +91,10 @@ let
   aliasPackage = name: val: writeShellScriptBin name "${val} $@";
 
   daynotes = pkgs.writeShellScriptBin "daynotes" ''
-    vim ${PROJECT_ROOT}/notes/days/$(date +%Y-%m-%d).todo.md
+    vim $DAYNOTES_ROOT/$(date +%Y-%m-%d).todo.md
   '';
 in
-mkShell rec {
+mkShell {
   name = "impurePythonEnv";
   venvDir = "./.venv";
 
@@ -118,7 +104,6 @@ mkShell rec {
     "--smart-case"
   ]);
   GIT_CONFIG_GLOBAL = ./.gitconfig;
-  GITGET_ROOT = PROJECT_ROOT;
 
   LD_LIBRARY_PATH = [
     "${file}/lib"
@@ -214,15 +199,5 @@ mkShell rec {
   # Run this command, only after creating the virtual environment
   postVenvCreation = ''
     unset SOURCE_DATE_EPOCH
-  '';
-
-  # Now we can execute any commands within the virtual environment.
-  # This is optional and can be left out to run pip manually.
-  postShellHook = ''
-    # allow pip to install wheels
-    unset SOURCE_DATE_EPOCH
-
-    mkdir -p .vim
-    ln -sf ${cocConfig} ${PROJECT_ROOT}/.vim/coc-settings.json
   '';
 }
