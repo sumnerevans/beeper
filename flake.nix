@@ -53,20 +53,20 @@
             [
               # Python
               pkg-config
-              python310
-              python310Packages.boto3
-              python310Packages.bottle
-              python310Packages.click
-              python310Packages.pillow
-              python310Packages.psycopg2
-              python310Packages.PyICU
-              python310Packages.python-magic
-              python310Packages.python-olm
-              python310Packages.pyyaml
-              python310Packages.requests
-              python310Packages.sh
-              python310Packages.venvShellHook
-              python310Packages.virtualenv
+              python3
+              python3Packages.boto3
+              python3Packages.bottle
+              python3Packages.click
+              python3Packages.pillow
+              python3Packages.psycopg2
+              python3Packages.PyICU
+              python3Packages.python-magic
+              python3Packages.python-olm
+              python3Packages.pyyaml
+              python3Packages.requests
+              python3Packages.sh
+              python3Packages.venvShellHook
+              python3Packages.virtualenv
 
               # Bridge dependencies
               ffmpeg
