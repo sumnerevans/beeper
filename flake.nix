@@ -47,7 +47,13 @@
               "--search-zip"
               "--smart-case"
             ]);
-          GIT_CONFIG_GLOBAL = ./.gitconfig;
+          GIT_CONFIG_GLOBAL = pkgs.writeText "gitconfig" ''
+            [include]
+                path = ~/.config/git/config
+
+            [user]
+                email = sumner@beeper.com
+          '';
 
           buildInputs = with pkgs;
             [
@@ -57,6 +63,7 @@
               python3Packages.boto3
               python3Packages.bottle
               python3Packages.click
+              python3Packages.gevent
               python3Packages.pillow
               python3Packages.psycopg2
               python3Packages.PyICU
@@ -65,6 +72,8 @@
               python3Packages.pyyaml
               python3Packages.requests
               python3Packages.sh
+              python3Packages.urllib3
+
               python3Packages.venvShellHook
               python3Packages.virtualenv
 
