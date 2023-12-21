@@ -82,12 +82,15 @@
               libheif
 
               # Kubernetes + local stack
+              gcc
               k9s
               kubectl
               kustomize
+              libffi
               minikube
               mkcert
               skaffold
+              stdenv.cc.cc.lib
 
               # Deno
               deno
@@ -117,6 +120,7 @@
 
               # Utilities
               daynotes
+              mitmproxy
               ngrok
               pre-commit
               protobuf
