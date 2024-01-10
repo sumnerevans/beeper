@@ -77,6 +77,9 @@
               python3Packages.venvShellHook
               python3Packages.virtualenv
 
+              # Synapse
+              matrix-synapse
+
               # Bridge dependencies
               ffmpeg
               libheif
