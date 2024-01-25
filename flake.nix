@@ -17,6 +17,38 @@
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
+
+          overlays = [
+            (final: prev: {
+              matrix-synapse-unwrapped =
+                prev.matrix-synapse-unwrapped.overrideAttrs (old: rec {
+                  pname = "matrix-synapse";
+                  version = "unstable-2024-01-18";
+
+                  src = prev.fetchFromGitHub {
+                    owner = "beeper";
+                    repo = "synapse";
+                    rev = "82161750dd0b361ebe87245a396dfdc45da54a83";
+                    hash =
+                      "sha256-bW7gvQN2t+kMEP8NwvsHaW/xwwMrxwdwP2I/JduHCFA=";
+                  };
+
+                  cargoDeps = prev.rustPlatform.fetchCargoTarball {
+                    inherit src;
+                    name = "${pname}-${version}";
+                    hash =
+                      "sha256-BJlhi+pEhp2Io/nabxDJJuvvYtlWbn7odmWllS9/heo=";
+                  };
+
+                  propagatedBuildInputs =
+                    prev.matrix-synapse-unwrapped.propagatedBuildInputs
+                    ++ (with prev.python3.pkgs; [ hiredis txredisapi ]);
+
+                  doInstallCheck = false;
+                  doCheck = false;
+                });
+            })
+          ];
         };
         lib = pkgs.lib;
 
