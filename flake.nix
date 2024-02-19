@@ -8,6 +8,7 @@
     android-nixpkgs = {
       url = "github:tadfisher/android-nixpkgs/stable";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
@@ -148,7 +149,7 @@
               deno
 
               # Golang
-              go_1_21
+              go_1_22
               gopls
               gotools
               olm
