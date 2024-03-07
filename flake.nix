@@ -4,15 +4,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-
-    android-nixpkgs = {
-      url = "github:tadfisher/android-nixpkgs/stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, android-nixpkgs }:
+  outputs = { self, nixpkgs, flake-utils }:
     (flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -67,18 +61,6 @@
         };
         aliasPackage = name: val: pkgs.writeShellScriptBin name "${val} $@";
 
-        # Android
-        android_sdk = ((pkgs.callPackage android-nixpkgs { }).sdk (sdkPkgs:
-          with sdkPkgs; [
-            build-tools-34-0-0
-            cmdline-tools-latest
-            emulator
-            ndk-26-1-10909125
-            platform-tools
-            platforms-android-26
-            platforms-android-34
-          ]));
-
         daynotes = pkgs.writeShellScriptBin "daynotes" ''
           vim $DAYNOTES_ROOT/$(date +%Y-%m-%d).todo.md
         '';
@@ -100,7 +82,6 @@
             [user]
                 email = sumner@beeper.com
           '';
-          ANDROID_HOME = "${android_sdk}/share/android-sdk";
 
           buildInputs = with pkgs;
             [
@@ -142,15 +123,12 @@
               skaffold
               stdenv.cc.cc.lib
 
-              # Android
-              android_sdk
-
               # Deno
               deno
 
               # Golang
               go_1_22
-              gopls
+              # gopls
               gotools
               olm
 
