@@ -128,8 +128,8 @@
 
               # Golang
               go_1_22
-              # gopls
               gotools
+              go-tools
               olm
 
               # JS
