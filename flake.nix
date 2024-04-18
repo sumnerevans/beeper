@@ -83,6 +83,9 @@
                 email = sumner@beeper.com
           '';
 
+          RAGESHAKE_PASSWORD = lib.removeSuffix "\n"
+            (builtins.readFile ./secrets/rageshake-password);
+
           buildInputs = with pkgs;
             [
               # Python
