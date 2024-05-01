@@ -75,13 +75,6 @@
               "--search-zip"
               "--smart-case"
             ]);
-          GIT_CONFIG_GLOBAL = pkgs.writeText "gitconfig" ''
-            [include]
-                path = ~/.config/git/config
-
-            [user]
-                email = sumner@beeper.com
-          '';
 
           RAGESHAKE_PASSWORD = lib.removeSuffix "\n"
             (builtins.readFile ./secrets/rageshake-password);
