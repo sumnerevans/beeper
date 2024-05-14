@@ -33,10 +33,10 @@ if len(log_files) == 0:
     print("No logs found")
     sys.exit(0)
 
-output = Path("rage-" + os.path.basename(urlparse(url).path.rstrip("/")) + ".log")
+output = Path(
+    "/home/sumner/tmp/rage-" + os.path.basename(urlparse(url).path.rstrip("/")) + ".log"
+)
 
-if len(sys.argv) > 2:
-    output = Path(sys.argv[2]) / output
 
 print(f"Found log files: {log_files}")
 
