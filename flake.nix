@@ -18,21 +18,21 @@
               matrix-synapse-unwrapped =
                 prev.matrix-synapse-unwrapped.overrideAttrs (old: rec {
                   pname = "matrix-synapse";
-                  version = "unstable-2024-01-18";
+                  version = "unstable-2024-06-04";
 
                   src = prev.fetchFromGitHub {
                     owner = "beeper";
                     repo = "synapse";
-                    rev = "bc841094130a953fd93cbd8f9d314104181614f4";
+                    rev = "cc5d647f79c2d351eb1a1c61b323a6797b4e3c0b";
                     hash =
-                      "sha256-PKt49KpO8LUrBDsI18Cdg2QWFmJg6tMp3gGUuF7P8DA=";
+                      "sha256-94O6Y8JN+eJX2IlKzfhKgDCCLJbQMkmJ6exXfvdu7nA=";
                   };
 
                   cargoDeps = prev.rustPlatform.fetchCargoTarball {
                     inherit src;
                     name = "${pname}-${version}";
                     hash =
-                      "sha256-5D0NMZlQ5iaGdgyqygjjbfJH7XO6Sj24YNEiNu3joaA=";
+                      "sha256-fi052nUPba/lGuhxE/rhKWaNLNvDyTMtrMOmyWi0y8I=";
                   };
 
                   propagatedBuildInputs =
