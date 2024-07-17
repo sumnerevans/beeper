@@ -79,8 +79,13 @@
           RAGESHAKE_PASSWORD = lib.removeSuffix "\n"
             (builtins.readFile ./secrets/rageshake-password);
 
+          LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+
           buildInputs = with pkgs;
             [
+              # Libraries
+              olm
+
               # Python
               pkg-config
               python3
@@ -105,8 +110,10 @@
               matrix-synapse
 
               # Bridge dependencies
-              ffmpeg
+              ffmpeg-full
               libheif
+              rlottie
+              lottieconverter
 
               # Kubernetes + local stack
               gcc
@@ -123,10 +130,9 @@
               deno
 
               # Golang
-              go_1_22
-              gotools
               go-tools
-              olm
+              go
+              gotools
 
               # JS
               yarn
@@ -139,6 +145,11 @@
               nodejs
 
               # Rust
+              clang
+              cmake
+              gnumake
+              protobuf
+              rust-cbindgen
               rustup
 
               # Synapse Docs
