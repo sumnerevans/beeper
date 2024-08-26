@@ -11,7 +11,10 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          config.allowUnfree = true;
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = [ "olm-3.2.16" ];
+          };
 
           overlays = [
             (final: prev: {
@@ -69,13 +72,6 @@
           name = "impurePythonEnv";
           venvDir = "./.venv";
 
-          RIPGREP_CONFIG_PATH = pkgs.writeText "ripgreprc"
-            (lib.concatStringsSep "\n" [
-              "--hidden"
-              "--search-zip"
-              "--smart-case"
-            ]);
-
           RAGESHAKE_PASSWORD = lib.removeSuffix "\n"
             (builtins.readFile ./secrets/rageshake-password);
 
@@ -91,6 +87,7 @@
               python3
               python3Packages.boto3
               python3Packages.bottle
+              python3Packages.cffi
               python3Packages.click
               python3Packages.gevent
               python3Packages.pillow
