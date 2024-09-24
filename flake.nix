@@ -13,7 +13,7 @@
           inherit system;
           config = {
             allowUnfree = true;
-            permittedInsecurePackages = [ "olm-3.2.16" ];
+            permittedInsecurePackages = [ "olm-3.2.16" "litestream-0.3.13" ];
           };
 
           overlays = [
@@ -21,21 +21,21 @@
               matrix-synapse-unwrapped =
                 prev.matrix-synapse-unwrapped.overrideAttrs (old: rec {
                   pname = "matrix-synapse";
-                  version = "unstable-2024-06-04";
+                  version = "unstable-2024-09-24";
 
                   src = prev.fetchFromGitHub {
                     owner = "beeper";
                     repo = "synapse";
-                    rev = "cc5d647f79c2d351eb1a1c61b323a6797b4e3c0b";
+                    rev = "cdef137ffac2fef92aee4fc59aa888a0dbbcd020";
                     hash =
-                      "sha256-94O6Y8JN+eJX2IlKzfhKgDCCLJbQMkmJ6exXfvdu7nA=";
+                      "sha256-d1CNd5Q3DSSi6lu5qOd+hjo8iY1H1AXAO/QdodmFVBg=";
                   };
 
                   cargoDeps = prev.rustPlatform.fetchCargoTarball {
                     inherit src;
                     name = "${pname}-${version}";
                     hash =
-                      "sha256-fi052nUPba/lGuhxE/rhKWaNLNvDyTMtrMOmyWi0y8I=";
+                      "sha256-s7/ojE5VskjDr7hDWLYaoZWbP8xvPJF2HZ/UdtWUcFw=";
                   };
 
                   propagatedBuildInputs =
@@ -127,9 +127,7 @@
               deno
 
               # Golang
-              go-tools
-              go
-              gotools
+              go_1_23
 
               # JS
               yarn
