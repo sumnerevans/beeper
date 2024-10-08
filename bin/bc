@@ -1,0 +1,324 @@
+#!/usr/bin/env bash
+command=("kubectl")
+postargs=()
+preargs=()
+
+export STACK=$HOME/repositories/github.com/sumnerevans/beeper/github.com/beeper/stack
+export AWS_DEFAULT_REGION="eu-central-1"
+export MEOW_AWS_MODE=DeveloperReadOnly
+if [[ "$1" == "-w" ]]; then
+	shift
+	export MEOW_AWS_MODE=AdministratorAccess
+fi
+
+context="bridges"
+domain="beeper.com"
+context_env="prod"
+if [[ "$(basename $0)" == "bdc" ]]; then
+	domain="beeper-dev.com"
+	context_env="dev"
+elif [[ "$(basename $0)" == "badc" ]]; then
+	context="core-eu"
+	domain="beeper-dev.com"
+	context_env="dev"
+elif [[ "$(basename $0)" == "bsc" ]]; then
+	domain="beeper-staging.com"
+	context_env="staging"
+elif [[ "$(basename $0)" == "basc" ]]; then
+	context="aws"
+	domain="beeper-staging.com"
+	context_env="staging"
+elif [[ "$(basename $0)" == "bac" ]]; then
+	context="aws"
+elif [[ "$(basename $0)" == "btc" ]]; then
+	context="tooling"
+	context_env="tooling"
+elif [[ "$(basename $0)" == "bpc" ]]; then
+	context="proxy-eu"
+	context_env="proxy-eu"
+fi
+
+source "$STACK/secrets/bc_vars.env"
+
+if [[ "$context_env" == "tooling" ]]; then
+	export AWS_ACCOUNT_ID=$TOOLING_AWS_ACCOUNT_ID
+	context_env_full="tooling"
+elif [[ "$context_env" == "proxy-eu" ]]; then
+	export AWS_ACCOUNT_ID=$PROXY_EU_AWS_ACCOUNT_ID
+	context_env_full="tooling"
+elif [[ "$context_env" == "prod" ]]; then
+	export AWS_ACCOUNT_ID=$PROD_AWS_ACCOUNT_ID
+	context_env_full="production"
+elif [[ "$context_env" == "staging" ]]; then
+	export AWS_ACCOUNT_ID=$STAGING_AWS_ACCOUNT_ID
+	context_env_full="staging"
+else
+	export AWS_ACCOUNT_ID=$DEV_AWS_ACCOUNT_ID
+	context_env_full="development"
+fi
+
+CACHEDIR="/tmp/bc-cache/$context_env"
+if [[ ! -d "$CACHEDIR" ]]; then
+	mkdir -p "$CACHEDIR/clusterids"
+	mkdir -p "$CACHEDIR/sso"
+	mkdir -p "$CACHEDIR/kubeconfigs"
+	chmod 700 -R "$CACHEDIR"
+fi
+
+$($STACK/scripts/aws-sso \
+	$CACHEDIR/sso/aws-$MEOW_AWS_MODE.json \
+	https://beeper.awsapps.com/start \
+	$AWS_DEFAULT_REGION \
+	$MEOW_AWS_MODE \
+	$AWS_ACCOUNT_ID)
+
+function get_cluster_id {
+	cache_path="$CACHEDIR/clusterids/$1"
+	if [[ ! -f "$cache_path" ]]; then
+		echo "Fetching $1's cluster ID from api server" >&2
+		export BEEPER_ENV_DIR=$STACK/infra/environments/$context_env_full
+		export BEEPER_API_DOMAIN=$domain
+		cluster_id=$($STACK/scripts/api-curl "admin/user/$1?cache=true" | jq '.user.bridgeCluster.clusterId' -r)
+		echo "$cluster_id" > "$cache_path"
+	fi
+	cat "$cache_path"
+}
+
+IFS="#" read -ra target <<< "$1"
+shift
+namespace="${target[0]}"
+if [[ "${#target[@]}" -eq 2 ]]; then
+	service="${target[1]}"
+	service_type="deployment"
+elif [[ "${#target[@]}" -eq 3 && "${target[1]}" == "" ]]; then
+	service="${target[2]}"
+	service_type="statefulset"
+fi
+
+if [[ "$context" == "tooling" ]]; then
+	export KUBECONFIG=$STACK/infra/environments/tooling/overlays/services-global/kubeconfig.yaml
+	if [[ "$namespace" != "g" ]]; then
+		preargs+=("-n" "$namespace")
+	fi
+elif [[ "$context" == "proxy-eu" ]]; then
+	export KUBECONFIG=$STACK/infra/environments/tooling/overlays/proxy-eu/kubeconfig.yaml
+	if [[ "$namespace" != "g" ]]; then
+		preargs+=("-n" "$namespace")
+	fi
+elif [[ "$context" == "core-eu" ]]; then
+	export KUBECONFIG=$STACK/infra/environments/$context_env_full/overlays/core-eu/kubeconfig.yaml
+	if [[ "$namespace" != "g" ]]; then
+		preargs+=("-n" "$namespace")
+	fi
+elif [[ "$context" == "aws" ]]; then
+	export KUBECONFIG=$CACHEDIR/kubeconfigs/aws.yaml
+	if [[ ! -f $KUBECONFIG ]]; then
+		aws eks update-kubeconfig --name beeper-synapse-$context_env_full
+	fi
+	if [[ "$namespace" != "g" ]]; then
+		preargs+=("-n" "$namespace")
+	fi
+elif [[ "$context" == "bridges" ]]; then
+	if [[ "$namespace" == "clusters" ]]; then
+		ls $STACK/infra/environments/$context_env_full/kubeconfigs
+		exit 0
+	elif [[ "$namespace" == "g" ]]; then
+		cluster_id="$1"
+		shift
+	else
+		cluster_id=$(get_cluster_id "$namespace")
+		if [[ "$cluster_id" == "null" ]]; then
+			echo "User not found" >&2
+			exit 1
+		fi
+		preargs=("-n" "bc-$namespace")
+	fi
+	export KUBECONFIG=$STACK/infra/environments/$context_env_full/overlays/$cluster_id/kubeconfig.yaml
+	if [[ ! -f $KUBECONFIG ]]; then
+		export KUBECONFIG=$STACK/infra/environments/$context_env_full/kubeconfigs/kubeconfig-hetzner-$cluster_id.yaml
+	fi
+fi
+
+function get_db_uri {
+	set -x
+	kubectl "${preargs[@]}" exec "$service_type/$service" -- yq e "$1" /data/config.yaml
+}
+
+function get_node_name {
+	set -x
+	kubectl "${preargs[@]}" get pod "${service}-0" -ojsonpath='{.spec.nodeName}'
+}
+
+function find_liteserv {
+	set -x
+	kubectl -n beeper get pod -l app=liteserv --field-selector "spec.nodeName=$1" -ojsonpath='{.items[0].metadata.name}'
+}
+
+function get_pods {
+	set -x
+	kubectl "${preargs[@]}" get pods
+}
+
+function findport {
+	while
+		port=$(shuf -n 1 -i 49152-65535)
+		netstat -atun | grep -q "$port"
+	do
+		continue
+	done
+	echo "$port"
+}
+
+function waitforportforward {
+	sleep 0.25
+	echo -n "Waiting for port to be forwarded"
+	until grep -q -i 'Forwarding from ' $1; do
+		if ! ps $2 > /dev/null; then
+			echo "Port forwarding failed" >&2
+			exit 1
+		fi
+		echo -n "."
+		sleep 0.25
+	done
+	echo
+}
+
+function awspsql {
+	NAMESPACE=$1
+	PROXYNAME=$2
+	INSTANCE=$3
+	DBNAME=$4
+	LOCALDBPORT=$(findport)
+	LOCALDBHOST=127.0.0.1
+	if [[ "$MEOW_AWS_MODE" == "AdministratorAccess" ]]; then
+		PGUSER=$DBNAME
+		echo "Please touch the device"
+		export PGPASSWORD=$(pass Work/Beeper/Shared/environments/$context_env_full/$5-rds-password)
+	else
+		RDSHOST=$(aws rds describe-db-instances --db-instance-identifier=$INSTANCE | jq -r .DBInstances[0].Endpoint.Address)
+		PGUSER=beeper-ro
+		export PGPASSWORD=$(aws rds generate-db-auth-token --hostname $RDSHOST --port 5432 --region $AWS_DEFAULT_REGION --username $PGUSER)
+	fi
+	FWD_OUTPUT_TMPFILE=$(mktemp "$CACHEDIR/psqlforward-XXXXX.log")
+	set -x
+	set -m
+	kubectl -n $NAMESPACE port-forward deployment/$PROXYNAME $LOCALDBPORT:5432 &>$FWD_OUTPUT_TMPFILE &
+	PORT_FORWARD_PID=$!
+	trap 'kill $PORT_FORWARD_PID; rm -f $FWD_OUTPUT_TMPFILE' EXIT
+	set +x
+	waitforportforward $FWD_OUTPUT_TMPFILE || exit
+	set -x
+	tail -n +1 --follow=name $FWD_OUTPUT_TMPFILE 2>/dev/null &
+	psql -h $LOCALDBHOST -p $LOCALDBPORT -U $PGUSER $DBNAME
+}
+
+if [[ "$1" == "psql" ]]; then
+	shift
+	if [[ "$namespace" == "synapse" || "$namespace" == "chatwoot" || "$namespace" == "beeper" ]]; then
+		if [[ "$service" == "asmux" ]]; then
+			awspsql $namespace asmux-postgres-proxy synapse-services asmux synapse-services
+		elif [[ "$service" == "synapse" ]]; then
+			awspsql $namespace synapse-postgres-proxy synapse synapse synapse
+		elif [[ "$service" == "scheduleserv" ]]; then
+			awspsql $namespace asmux-postgres-proxy synapse-services scheduleserv synapse-services
+		elif [[ "$service" == "media-repo" ]]; then
+			awspsql $namespace media-repo-postgres-proxy media-repo-2023-04-2 media_repo matrix-media-repo
+		elif [[ "$service" == "chatwoot" ]]; then
+			awspsql $namespace rds-proxy chatwoot chatwoot
+		elif [[ "$service" == "api-server" ]]; then
+			awspsql $namespace beeper-postgres-proxy beeper beeper beeper
+		else
+			echo "Unsupported service $service"
+			exit 1
+		fi
+		exit
+	else
+		db_uri_field=".appservice.database"
+		if [[ "$service" == "whatsapp" || "$service" == "discordgo" || "$service" == "slackgo" ]]; then
+			db_uri_field=".appservice.database.uri"
+		fi
+		# Hacky hack to parse the first chunk of the hostname out of the database URL
+		pod=$(get_db_uri "$db_uri_field" | cut -d@ -f2 | cut -d. -f1)
+		preargs=("-n" "bridge-database")
+		db_name="${namespace}-${service}"
+	fi
+	preargs+=("exec" "-it" "$pod" "-c" "postgres" "--" "psql" "-U" "postgres" "$db_name")
+elif [[ "$1" == "sqlite" ]]; then
+	shift
+	nodename=$(get_node_name)
+	if [[ -z "$nodename" ]]; then
+		echo "Node name not found for $namespace/$service"
+		exit 1
+	fi
+	liteserv_pod=$(find_liteserv $nodename)
+	if [[ -z "$liteserv_pod" ]]; then
+		echo "Liteserv pod not found for $namespace/$service on $nodename"
+		exit 1
+	fi
+	preargs=("-n" "beeper" "exec" "-it" "$liteserv_pod" "--" "/usr/bin/sqlite3" "-box" "-nullvalue" "NULL" "-cmd" "PRAGMA foreign_keys = ON;" "-cmd" "PRAGMA wal_autocheckpoint=0;" "-cmd" ".changes on" "-cmd" ".timer on")
+	if [[ "$1" == "-writable" ]]; then
+		shift
+	else
+		preargs+=("-readonly")
+	fi
+	preargs+=("/var/lib/litestream/bc-$namespace/$service/$service.db")
+elif [[ "$1" == "api-curl" ]]; then
+	shift
+	export BEEPER_ENV_DIR=$STACK/infra/environments/$context_env_full
+	export BEEPER_API_DOMAIN=$domain
+	$STACK/scripts/api-curl "$@"
+	exit 0
+elif [[ "$1" == "aws-iam-authenticator" ]]; then
+	shift
+	export BEEPER_ENV_DIR=$STACK/infra/environments/$context_env_full
+	export BEEPER_API_DOMAIN=$domain
+	aws-iam-authenticator "$@"
+	exit 0
+elif [[ "$1" == "dl-sqlite" ]]; then
+	shift
+	export BEEPER_ENV_DIR=$STACK/infra/environments/$context_env_full
+	export BEEPER_API_DOMAIN=$domain
+	export BEEPER_STACK_ROOT="$STACK"
+	export PATH="$STACK/scripts:$PATH:$STACK/tools/linux-nolfs"
+	$STACK/scripts/litestream-b2 $namespace $service restore
+	exit 0
+elif [[ "$1" == "aws" ]]; then
+	shift
+	aws "$@"
+	exit 0
+elif [[ ! -z "$service" && "$service" != "g" ]]; then
+	if [[ "$1" == "exec" || "$1" == "sh" || "$1" == "bash" ]]; then
+		cmd="$1"
+		shift
+		if [[ "$cmd" == "exec" ]]; then
+			preargs+=("exec" "$service_type/$service")
+		else
+			preargs+=("exec" "-it" "$service_type/$service" "--" "$cmd")
+		fi
+	elif [[ "$1" == "edit" ]]; then
+		pod=$(get_pods | grep "$service" | head -n1 | awk '{print $1}')
+		preargs+=("edit" "pod" "$pod")
+		shift
+	elif [[ "$1" == "logs" ]]; then
+		# Using -l for logs would make --tail default to 10 instead of -1
+		postargs+=("$service_type/$service")
+		preargs+=("-c" "$service")
+	elif [[ "$1" == "port-forward" ]]; then
+		preargs+=("$1" "$service_type/$service")
+		shift
+	elif [[ "$1" == "restart" ]]; then
+		preargs+=("rollout" "restart" "$service_type/$service")
+		shift
+	else
+		preargs+=("-l" "app=$service")
+	fi
+fi
+if [[ "$1" == "watch" ]]; then
+	shift
+	preargs+=(get)
+	command=("watch" "${command[@]}")
+fi
+
+args=("${command[@]}" "${preargs[@]}" "$@" "${postargs[@]}")
+set -x
+"${args[@]}"
