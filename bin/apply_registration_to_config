@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+as_id=$(yq .id registration.yaml)
+as_token=$(yq .as_token registration.yaml)
+hs_token=$(yq .hs_token registration.yaml)
+
+yq -I 4 -i ".appservice.id = \"${as_id}\"" config.yaml
+yq -I 4 -i ".appservice.as_token = \"${as_token}\"" config.yaml
+yq -I 4 -i ".appservice.hs_token = \"${hs_token}\"" config.yaml
+yq -I 4 -i ".double_puppet.secrets.localhost = \"as_token:${as_token}\"" config.yaml
