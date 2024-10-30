@@ -24,7 +24,7 @@ log_files = []
 with opener.open(url) as f:
     page = f.read().decode("utf-8")
 
-    logs = list(set(re.findall(r"(logs-\d+.log.gz)", page)))
+    logs = list(set(re.findall(r"((?:logs-\d+|console-main.\d*).log.gz)", page)))
     logs.sort()
     logs.reverse()
     log_files = logs

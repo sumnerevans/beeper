@@ -38,7 +38,7 @@ elif [[ "$(basename $0)" == "bpc" ]]; then
 	context_env="proxy-eu"
 fi
 
-source "$STACK/secrets/bc_vars.env"
+source "/home/sumner/repositories/github.com/sumnerevans/beeper/secrets/bc_vars.env"
 
 if [[ "$context_env" == "tooling" ]]; then
 	export AWS_ACCOUNT_ID=$TOOLING_AWS_ACCOUNT_ID
