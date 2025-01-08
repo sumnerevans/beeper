@@ -26,16 +26,16 @@
                   src = prev.fetchFromGitHub {
                     owner = "beeper";
                     repo = "synapse";
-                    rev = "cdef137ffac2fef92aee4fc59aa888a0dbbcd020";
+                    rev = "f7bd70163ebe6278feade5e94b0f410589c893d3";
                     hash =
-                      "sha256-d1CNd5Q3DSSi6lu5qOd+hjo8iY1H1AXAO/QdodmFVBg=";
+                      "sha256-/MFY60NcTKlT5pr2owl0I92ISYYs2/gR7E+Rq80dDQ0=";
                   };
 
                   cargoDeps = prev.rustPlatform.fetchCargoTarball {
                     inherit src;
                     name = "${pname}-${version}";
                     hash =
-                      "sha256-s7/ojE5VskjDr7hDWLYaoZWbP8xvPJF2HZ/UdtWUcFw=";
+                      "sha256-23so3BTC4Im/fBbk/ZJpEFe0S9T8mOKDnuG70FRW7aQ=";
                   };
 
                   propagatedBuildInputs =
