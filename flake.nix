@@ -97,7 +97,6 @@
               python3Packages.python-olm
               python3Packages.pyyaml
               python3Packages.requests
-              python3Packages.sh
               python3Packages.urllib3
 
               python3Packages.venvShellHook
