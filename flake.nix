@@ -31,11 +31,11 @@
                       "sha256-/MFY60NcTKlT5pr2owl0I92ISYYs2/gR7E+Rq80dDQ0=";
                   };
 
-                  cargoDeps = prev.rustPlatform.fetchCargoTarball {
+                  cargoDeps = prev.rustPlatform.fetchCargoVendor {
                     inherit src;
                     name = "${pname}-${version}";
                     hash =
-                      "sha256-23so3BTC4Im/fBbk/ZJpEFe0S9T8mOKDnuG70FRW7aQ=";
+                      "sha256-ibqzU23Nyhjs50SoXxA9TWjFKrcVVOuWUZ+t3c0WOCg=";
                   };
 
                   propagatedBuildInputs =
