@@ -126,7 +126,7 @@
               deno
 
               # Golang
-              go_1_23
+              go_1_24
 
               # JS
               yarn
