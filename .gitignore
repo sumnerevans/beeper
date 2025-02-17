@@ -1,11 +1,12 @@
-.vim/coc-settings.json
-.direnv
-.venv
-.data
-.signaldata
-.synapsedata
 *.tmp
 .clash
+.data
+.direnv
+.gomuks/
+.signaldata
+.synapsedata
+.venv
+.vim/coc-settings.json
 scratch/
 
 github.com/
