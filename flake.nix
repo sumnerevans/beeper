@@ -15,38 +15,6 @@
             allowUnfree = true;
             permittedInsecurePackages = [ "olm-3.2.16" "litestream-0.3.13" ];
           };
-
-          overlays = [
-            (final: prev: {
-              matrix-synapse-unwrapped =
-                prev.matrix-synapse-unwrapped.overrideAttrs (old: rec {
-                  pname = "matrix-synapse";
-                  version = "unstable-2024-09-24";
-
-                  src = prev.fetchFromGitHub {
-                    owner = "beeper";
-                    repo = "synapse";
-                    rev = "f7bd70163ebe6278feade5e94b0f410589c893d3";
-                    hash =
-                      "sha256-/MFY60NcTKlT5pr2owl0I92ISYYs2/gR7E+Rq80dDQ0=";
-                  };
-
-                  cargoDeps = prev.rustPlatform.fetchCargoVendor {
-                    inherit src;
-                    name = "${pname}-${version}";
-                    hash =
-                      "sha256-ibqzU23Nyhjs50SoXxA9TWjFKrcVVOuWUZ+t3c0WOCg=";
-                  };
-
-                  propagatedBuildInputs =
-                    prev.matrix-synapse-unwrapped.propagatedBuildInputs
-                    ++ (with prev.python3.pkgs; [ hiredis txredisapi ]);
-
-                  doInstallCheck = false;
-                  doCheck = false;
-                });
-            })
-          ];
         };
         lib = pkgs.lib;
 
