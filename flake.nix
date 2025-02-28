@@ -40,6 +40,21 @@
           name = "impurePythonEnv";
           venvDir = "./.venv";
 
+          GIT_CONFIG_GLOBAL = pkgs.writeText "gitconfig" ''
+            [include]
+                path = ~/.config/git/config
+
+            [user]
+                email = sumner.evans@automattic.com
+                signingKey = ~/.ssh/id_ed25519
+
+            [gpg]
+                format = "ssh"
+
+            [gpg "ssh"]
+                program = "ssh-keygen"
+          '';
+
           RAGESHAKE_PASSWORD = lib.removeSuffix "\n"
             (builtins.readFile ./secrets/rageshake-password);
 
